@@ -1,0 +1,24 @@
+{
+  "initial": [
+    {
+      "type": "atlas",
+      "key": "safari",
+      "textureURL": "assets/atlas/safari.png",
+      "atlasURL": "assets/atlas/safari.json",
+      "atlasData": null,
+      "overwrite": false
+    },
+    {
+      "type": "json",
+      "key": "gameData",
+      "url": "assets/gameData.json",
+      "overwrite": false
+    },
+    {
+      "type": "json",
+      "key": "backgroundData",
+      "url": "assets/backgroundData.json",
+      "overwrite": false
+    }
+  ]
+}
