@@ -9,6 +9,7 @@ export default class GameState extends Phaser.State {
   static STATE_LEVEL_COMPLETE = 1
 
   static SOUND_REPEAT_DURATION = 10000;
+  static SCROLL_SPEED = 10;
 
   init () {
     this.stage.backgroundColor = '#9df6e4'
@@ -47,11 +48,19 @@ export default class GameState extends Phaser.State {
   }
 
   scrollLeft () {
-    this.container.x += 10
+    if (this.container.x < -GameState.SCROLL_SPEED) {
+      this.container.x += 10
+    } else {
+      this.container.x = 0
+    }
   }
 
   scrollRight () {
-    this.container.x -= 10
+    if (this.container.x > -(this.container.width - this.game.canvas.width - GameState.SCROLL_SPEED)) {
+      this.container.x -= 10
+    } else {
+      this.container.x = -(this.container.width - this.game.canvas.width)
+    }
   }
 
   createAnimals (animals) {
