@@ -3,7 +3,6 @@ import Game from '../main'
 
 export default class BootState extends Phaser.State {
   init () {
-    this.stage.backgroundColor = '#1b1a23'
     this.game.renderer.renderSession.roundPixels = true
 
     this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL

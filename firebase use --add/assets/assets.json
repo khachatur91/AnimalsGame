@@ -1,0 +1,48 @@
+{
+  "initial": [
+    {
+      "type": "atlas",
+      "key": "safari",
+      "textureURL": "assets/atlas/safari.png",
+      "atlasURL": "assets/atlas/safari.json",
+      "atlasData": null,
+      "overwrite": false
+    },
+    {
+      "type": "atlas",
+      "key": "ui",
+      "textureURL": "assets/atlas/ui.png",
+      "atlasURL": "assets/atlas/ui.json",
+      "atlasData": null,
+      "overwrite": false
+    },
+    {
+      "type": "json",
+      "key": "gameData",
+      "url": "assets/gameData.json",
+      "overwrite": false
+    },
+    {
+      "type": "json",
+      "key": "backgroundData",
+      "url": "assets/backgroundData.json",
+      "overwrite": false
+    },
+    {
+      "type": "audio",
+      "key": "reveal",
+      "urls": [
+        "assets/audio/reveal.mp3"
+      ],
+      "autoDecode": true
+    },
+    {
+      "type": "audio",
+      "key": "photo",
+      "urls": [
+        "assets/audio/photo.mp3"
+      ],
+      "autoDecode": true
+    }
+  ]
+}

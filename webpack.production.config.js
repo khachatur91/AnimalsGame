@@ -26,7 +26,7 @@ module.exports = {
     },
 
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'firebase use --add'),
         publicPath: '',
         filename: 'bundle.js'
     },
@@ -52,7 +52,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'index.template.ejs',
             hash: true,
-            title: 'Wheel Of Fortune Slot'
+            title: 'Safari Animals'
         }),
 
         new CopyWebpackPlugin([{

@@ -56,7 +56,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'index.template.ejs',
             hash: true,
-            title: 'wheel of fortune'
+            title: 'Safari Animals'
         }),
 
         new CopyWebpackPlugin([{

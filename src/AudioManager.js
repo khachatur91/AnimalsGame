@@ -25,7 +25,9 @@ export default class AudioManager {
     this.commads = []
     this.decoded = false
     this.revealSFX = this.game.add.audio('reveal')
+    this.photoSFX = this.game.add.audio('photo')
     this.sounds.push(this.revealSFX)
+    this.sounds.push(this.photoSFX)
     this.game.sound.setDecodedCallback(this.sounds, this.onDecode, this)
   }
 
@@ -56,7 +58,6 @@ export default class AudioManager {
   }
 
   play (key) {
-    console.log(this)
     if (this.decoded) {
       this[key].play()
     }

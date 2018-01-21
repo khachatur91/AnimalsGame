@@ -3,7 +3,7 @@ import Game from '../main'
 
 export default class SplayState extends Phaser.State {
   init () {
-    this.stage.backgroundColor = '#1b1a23'
+    this.stage.backgroundColor = '#d89d43'
     this.isLoaded = false
     this.isTweenComplete = false
   }

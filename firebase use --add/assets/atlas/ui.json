@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "fotoFrame",
+	"frame": {"x":2,"y":2,"w":593,"h":393},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":593,"h":393},
+	"sourceSize": {"w":593,"h":393}
+},
+{
+	"filename": "nameFrame",
+	"frame": {"x":598,"y":2,"w":155,"h":130},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":155,"h":130},
+	"sourceSize": {"w":155,"h":130}
+},
+{
+	"filename": "nextButton",
+	"frame": {"x":598,"y":135,"w":145,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":145,"h":120},
+	"sourceSize": {"w":145,"h":120}
+},
+{
+	"filename": "timerFrame",
+	"frame": {"x":756,"y":2,"w":155,"h":130},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":155,"h":130},
+	"sourceSize": {"w":155,"h":130}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "ui.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:63703348fd799fe41cd6a2040f3af9f6:9f55739c99e4fea0540aaf6fd3871e21:5b04aa198265472a3c5f56958d78e97b$"
+}
+}
