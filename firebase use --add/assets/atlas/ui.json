@@ -25,6 +25,14 @@
 	"sourceSize": {"w":145,"h":120}
 },
 {
+	"filename": "palaroidFrame",
+	"frame": {"x":2,"y":398,"w":561,"h":674},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":561,"h":674},
+	"sourceSize": {"w":561,"h":674}
+},
+{
 	"filename": "timerFrame",
 	"frame": {"x":756,"y":2,"w":155,"h":130},
 	"rotated": false,
@@ -37,8 +45,8 @@
 	"version": "1.0",
 	"image": "ui.png",
 	"format": "RGBA8888",
-	"size": {"w":1024,"h":512},
+	"size": {"w":1024,"h":2048},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:63703348fd799fe41cd6a2040f3af9f6:9f55739c99e4fea0540aaf6fd3871e21:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:05f0ee9ae89a28ddd4c810e45d1356fc:d3627661739488426e4e64c4dcf160fa:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

@@ -2,9 +2,17 @@
   "initial": [
     {
       "type": "atlas",
-      "key": "safari",
-      "textureURL": "assets/atlas/safari.png",
-      "atlasURL": "assets/atlas/safari.json",
+      "key": "animals",
+      "textureURL": "assets/atlas/animals.png",
+      "atlasURL": "assets/atlas/animals.json",
+      "atlasData": null,
+      "overwrite": false
+    },
+    {
+      "type": "atlas",
+      "key": "background",
+      "textureURL": "assets/atlas/background.png",
+      "atlasURL": "assets/atlas/background.json",
       "atlasData": null,
       "overwrite": false
     },

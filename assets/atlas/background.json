@@ -1,0 +1,116 @@
+{"frames": [
+
+{
+	"filename": "bgGreen",
+	"frame": {"x":376,"y":1820,"w":826,"h":158},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":826,"h":158},
+	"sourceSize": {"w":826,"h":158}
+},
+{
+	"filename": "bgGreen1",
+	"frame": {"x":1205,"y":695,"w":826,"h":158},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":826,"h":158},
+	"sourceSize": {"w":826,"h":158}
+},
+{
+	"filename": "grass1",
+	"frame": {"x":709,"y":695,"w":400,"h":239},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":0,"w":400,"h":239},
+	"sourceSize": {"w":416,"h":239}
+},
+{
+	"filename": "grass2",
+	"frame": {"x":2,"y":1820,"w":371,"h":181},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":371,"h":181},
+	"sourceSize": {"w":371,"h":181}
+},
+{
+	"filename": "grass3",
+	"frame": {"x":587,"y":1239,"w":196,"h":361},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":196,"h":361},
+	"sourceSize": {"w":196,"h":361}
+},
+{
+	"filename": "ground1",
+	"frame": {"x":1925,"y":2,"w":20,"h":274},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":274},
+	"sourceSize": {"w":20,"h":274}
+},
+{
+	"filename": "ground2",
+	"frame": {"x":1948,"y":2,"w":20,"h":274},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":274},
+	"sourceSize": {"w":20,"h":274}
+},
+{
+	"filename": "groundColor1",
+	"frame": {"x":709,"y":434,"w":1186,"h":133},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1186,"h":133},
+	"sourceSize": {"w":1186,"h":133}
+},
+{
+	"filename": "groundColor2",
+	"frame": {"x":709,"y":570,"w":1186,"h":122},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1186,"h":122},
+	"sourceSize": {"w":1186,"h":122}
+},
+{
+	"filename": "mountains",
+	"frame": {"x":2,"y":2,"w":1920,"h":429},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1920,"h":429},
+	"sourceSize": {"w":1920,"h":429}
+},
+{
+	"filename": "tree",
+	"frame": {"x":2,"y":434,"w":704,"h":802},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":704,"h":802},
+	"sourceSize": {"w":704,"h":802}
+},
+{
+	"filename": "tree1",
+	"frame": {"x":2,"y":1239,"w":582,"h":578},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":582,"h":578},
+	"sourceSize": {"w":582,"h":578}
+},
+{
+	"filename": "water",
+	"frame": {"x":587,"y":1603,"w":1060,"h":92},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1060,"h":92},
+	"sourceSize": {"w":1060,"h":92}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "background.png",
+	"format": "RGBA8888",
+	"size": {"w":2048,"h":2048},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6a0936f78e200db737f3e2649214be39:e134bce61f77767eee54d8d59cfda0e6:2ba65c328dea799e4d80739630892abf$"
+}
+}
