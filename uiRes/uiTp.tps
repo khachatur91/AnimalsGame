@@ -199,16 +199,29 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">fotoFrame.png</key>
+            <key type="filename">frameCenter.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>148,98,297,197</rect>
+                <rect>74,74,147,147</rect>
                 <key>scale9Paddings</key>
-                <rect>148,98,297,197</rect>
+                <rect>74,74,147,147</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">frameCorner.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>23,22,45,44</rect>
+                <key>scale9Paddings</key>
+                <rect>23,22,45,44</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -249,6 +262,19 @@
                 <rect>140,170,281,339</rect>
                 <key>scale9Paddings</key>
                 <rect>140,170,281,339</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">settingsBg.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>114,20,227,40</rect>
+                <key>scale9Paddings</key>
+                <rect>114,20,227,40</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
