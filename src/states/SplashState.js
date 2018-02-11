@@ -14,6 +14,7 @@ export default class SplayState extends Phaser.State {
     let tween = this.game.add.tween(this.logo)
     tween.to({alpha: 1}, 500, Phaser.Easing.Quadratic.Out, false, 100).to({alpha: 0}, 500, Phaser.Easing.Quadratic.Out, true)
     tween.onComplete.add(this.onTweenComplete, this)
+
     this.game.load.pack('initial', 'assets/assets.json')
     this.game.load.start()
   }

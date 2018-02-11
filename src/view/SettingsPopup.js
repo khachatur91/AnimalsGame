@@ -6,19 +6,86 @@ export default class SettingsPopup extends Phaser.Group {
     this.submitAction = new Phaser.Signal()
     this.settings = {
       enableVoice: true,
-      enableLabel: false,
-      pinyin: false
+      enableLabel: true,
+      enablePinyin: false
     }
     this.createUI()
   }
 
   createUI () {
-    this.background = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'settingsBg', this)
-    this.background.anchor.set(0.5, 0.5)
+    const graph = this.game.make.graphics()
+    graph.beginFill(0, 0.5)
+    graph.drawRect(0, 0, this.game.width, this.game.height)
+    graph.endFill()
+
+    this.background = this.game.add.image(0, 0, graph.generateTexture(), '', this)
+    this.background.interactive = true
+
+    this.panel = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'popupBg', this)
+    this.panel.anchor.set(0.5, 0.5)
 
     this.submitButton = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'nextButton', this)
     this.submitButton.inputEnabled = true
     this.submitButton.events.onInputDown.add(this.onSubmit, this)
+
+    this.voiceLabel = this.game.add.text(this.game.width / 2 + 30, this.game.height / 2 - 100, 'Voice', {font: '60px Luckiest Guy', fill: '#d8ab25'}, this)
+    this.voiceLabel.anchor.set(1, 0.5)
+    this.voiceLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
+    this.namesLabel = this.game.add.text(this.game.width / 2 + 30, this.game.height / 2, 'Names', {font: '60px Luckiest Guy', fill: '#d8ab25'}, this)
+    this.namesLabel.anchor.set(1, 0.5)
+    this.namesLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
+    this.pinyinLabel = this.game.add.text(this.game.width / 2 + 30, this.game.height / 2 + 100, 'Pinyin', {font: '60px Luckiest Guy', fill: '#d8ab25'}, this)
+    this.pinyinLabel.anchor.set(1, 0.5)
+    this.pinyinLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
+
+    this.voiceButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 - 100, 'ui', 'checkBox', this)
+    this.voiceButton.inputEnabled = true
+    this.voiceButton.anchor.set(0.5, 0.5)
+    this.voiceButton.events.onInputDown.add(this.onVoiceSubmit, this)
+
+    this.voiceCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
+    this.voiceCheckMark.anchor.set(0.5, 0.5)
+    this.voiceCheckMark.visible = this.settings.enableVoice
+    this.voiceButton.addChild(this.voiceCheckMark)
+
+    this.namesButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2, 'ui', 'checkBox', this)
+    this.namesButton.inputEnabled = true
+    this.namesButton.anchor.set(0.5, 0.5)
+    this.namesButton.events.onInputDown.add(this.onNamesSubmit, this)
+
+    this.namesCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
+    this.namesCheckMark.anchor.set(0.5, 0.5)
+    this.namesCheckMark.visible = this.settings.enableLabel
+    this.namesButton.addChild(this.namesCheckMark)
+
+    this.pinyinButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 + 100, 'ui', 'checkBox', this)
+    this.pinyinButton.inputEnabled = true
+    this.pinyinButton.anchor.set(0.5, 0.5)
+    this.pinyinButton.events.onInputDown.add(this.onPinyinSubmit, this)
+
+    this.pinyinCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
+    this.pinyinCheckMark.anchor.set(0.5, 0.5)
+    this.pinyinCheckMark.visible = this.settings.enablePinyin
+    this.pinyinButton.addChild(this.pinyinCheckMark)
+  }
+
+  onVoiceSubmit () {
+    this.voiceCheckMark.visible = this.settings.enableVoice = !this.voiceCheckMark.visible
+
+    if (!this.settings.enableVoice) {
+      this.namesCheckMark.visible = this.settings.enableLabel = true
+    }
+  }
+
+  onNamesSubmit () {
+    if (!this.settings.enableVoice) {
+      return
+    }
+    this.namesCheckMark.visible = this.settings.enableLabel = !this.namesCheckMark.visible
+  }
+
+  onPinyinSubmit () {
+    this.pinyinCheckMark.visible = this.settings.enablePinyin = !this.pinyinCheckMark.visible
   }
 
   onSubmit () {

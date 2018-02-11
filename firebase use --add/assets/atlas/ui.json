@@ -41,6 +41,14 @@
 	"sourceSize": {"w":561,"h":674}
 },
 {
+	"filename": "settingsBg",
+	"frame": {"x":566,"y":2,"w":454,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":454,"h":80},
+	"sourceSize": {"w":454,"h":80}
+},
+{
 	"filename": "timerFrame",
 	"frame": {"x":299,"y":802,"w":204,"h":91},
 	"rotated": false,
@@ -55,6 +63,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e8a21bb778424925c01016fdecb19a90:082460148e6344b10c345a82acc6bd97:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5c47a01fd95d993f4b05f02a55f3a2c4:802f06eaa409758796ce3f3520d49529:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

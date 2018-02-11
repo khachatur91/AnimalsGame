@@ -14,6 +14,12 @@ export default class GameState extends Phaser.State {
   static SCROLL_DURATION = 2000;
 
   init () {
+    // default settings
+    this.settings = {
+      enableVoice: true,
+      enableLabel: true,
+      enablePinyin: false
+    }
     this.stage.backgroundColor = '#9df6e4'
 
     this.levelAnimals = this.game.cache.getJSON('gameData').levels
@@ -42,11 +48,14 @@ export default class GameState extends Phaser.State {
     this.settingsPopup = new SettingsPopup(this.game)
     this.settingsPopup.submitAction.add(this.onSettings, this)
     this.game.world.add(this.settingsPopup)
+    this.settingsPopup.visible = false
 
     this.restartPopup = new RestartPopup(this.game)
     this.restartPopup.submitAction.add(this.onRestart, this)
     this.game.world.add(this.restartPopup)
     this.restartPopup.visible = false
+
+    this.startLevel()
   }
 
   onRestart () {
@@ -57,22 +66,17 @@ export default class GameState extends Phaser.State {
   }
 
   onSettings (data) {
+    this.gameState = GameState.STATE_IN_GAME
     this.settings = data
     this.audioManager.isEnabled = this.settings.enableVoice
-    this.startLevel()
-
     this.nameFrame.visible = this.settings.enableLabel
   }
 
   startLevel () {
     this.currentAnimalIndex = 0
     shuffle(this.animalsList)
-    if (this.currentPage === 0) {
-      this.rightButton.visible = true
-    } else {
-      this.leftButton.visible = true
-    }
-    this.timerFrame.visible = true
+
+    this.showUI()
 
     this.gameState = GameState.STATE_IN_GAME
     this.photoList = []
@@ -136,10 +140,7 @@ export default class GameState extends Phaser.State {
     this.restartPopup.visible = true
     this.restartPopup.setAnimalsAmount(this.currentAnimalIndex)
 
-    this.rightButton.visible = false
-    this.leftButton.visible = false
-    this.timerFrame.visible = false
-
+    this.hideUI()
   }
 
   playTakeSound () {
@@ -152,7 +153,7 @@ export default class GameState extends Phaser.State {
     }
   }
 
-  screenshot () {
+  screenshot (addLabel) {
     if (!this.settings.enableVoice) {
       this.gameState = GameState.STATE_PAUSED
     }
@@ -175,17 +176,7 @@ export default class GameState extends Phaser.State {
         this.palaroidFrame.visible = false
         this.palaroidFrame.rotation = 0
         this.palaroidFrame.position.set(0, 0)
-        this.photoFrame.visible = true
-        if (this.currentPage === 0) {
-          this.rightButton.visible = true
-        } else {
-          this.leftButton.visible = true
-        }
-        // When the sound is turned off, the label should become visible here and not after sound finishes
-        if (!this.settings.enableVoice) {
-          this.nameFrame.visible = this.settings.enableLabel
-        }
-        this.timerFrame.visible = true
+        this.showUI()
         this.createPhotoFrame()
         if (!this.settings.enableVoice) {
           this.gameState = GameState.STATE_IN_GAME
@@ -193,11 +184,7 @@ export default class GameState extends Phaser.State {
       }, 1000)
     })
 
-    this.photoFrame.visible = false
-    this.rightButton.visible = false
-    this.leftButton.visible = false
-    this.timerFrame.visible = false
-    this.nameFrame.visible = false
+    this.hideUI()
 
     window.requestAnimationFrame(() => {
       let x = Math.min(Math.max(0, pos.x - 256), this.game.width - 512)
@@ -210,14 +197,16 @@ export default class GameState extends Phaser.State {
       const pic = this.game.add.image(0, -50, this.palaroidBitmapData.texture)
       pic.anchor.set(0.5, 0.5)
       this.palaroidFrame.addChild(pic)
-      const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, this.animalsList[this.currentAnimalIndex][this.game.lang])
-      animalName.fontSize = 80
-      animalName.stroke = '#342511'
-      animalName.strokeThickness = 8
-      animalName.fill = '#d8ab25'
-      animalName.anchor.set(0.5, 0.5)
-      this.palaroidFrame.addChild(pic)
-      this.palaroidFrame.addChild(animalName)
+      if (addLabel) {
+        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, this.animalsList[this.currentAnimalIndex][this.game.lang])
+        animalName.font = 'Luckiest Guy'
+        animalName.fontSize = 60
+        animalName.stroke = '#342511'
+        animalName.strokeThickness = 8
+        animalName.fill = '#d8ab25'
+        animalName.anchor.set(0.5, 0.5)
+        this.palaroidFrame.addChild(animalName)
+      }
 
       const flashTween = this.game.add.tween(this.flash)
       flashTween.to({alpha: 1}, 100)
@@ -263,6 +252,29 @@ export default class GameState extends Phaser.State {
     this.rightButton.visible = true
   }
 
+  hideUI () {
+    this.settingsButton.visible = false
+    this.photoFrame.visible = false
+    this.rightButton.visible = false
+    this.leftButton.visible = false
+    this.timerFrame.visible = false
+    this.nameFrame.visible = false
+  }
+
+  showUI () {
+    this.settingsButton.visible = true
+    this.photoFrame.visible = true
+    if (this.currentPage === 0) {
+      this.rightButton.visible = true
+    } else {
+      this.leftButton.visible = true
+    }
+    // When the sound is turned off, the label should become visible here and not after sound finishes
+    this.nameFrame.visible = this.settings.enableLabel
+
+    this.timerFrame.visible = true
+  }
+
   createUI () {
     this.photoFrame = this.game.add.group()
     // this.photoCenterFrame = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'frameCenter', this.photoFrame)
@@ -277,9 +289,11 @@ export default class GameState extends Phaser.State {
     // this.brCornerFrame.scale.y = -1
     // this.photoFrame.alpha = 0.6
 
+    this.settingsButton = this.game.add.button(20, 20, 'ui', this.onSettingsButtonClicked, this, 'settings', 'settings', 'settings', 'settings')
+
     this.timerFrame = this.game.add.sprite(this.game.width / 2, 0, 'ui', 'timerFrame')
     this.timerFrame.anchor.x = 0.5
-    this.timerLabel = this.game.add.text(0, 10, '00:00', '')
+    this.timerLabel = this.game.add.text(0, 10, '00:00', {font: '40px Luckiest Guy'})
     this.timerLabel.anchor.x = 0.5
     this.timerLabel.fontSize = 50
     this.timerLabel.fill = '#ffffff'
@@ -290,7 +304,8 @@ export default class GameState extends Phaser.State {
     this.nameFrame.anchor.x = 0.5
     this.nameFrame.anchor.y = 1
     this.nameFrame.visible = false
-    this.nameLabel = this.game.add.text(0, 0, '', '')
+
+    this.nameLabel = this.game.add.text(0, 0, '', {font: '40px Luckiest Guy'})
     this.nameLabel.anchor.x = 0.5
     this.nameLabel.anchor.y = 1
     this.nameLabel.fontSize = 50
@@ -313,6 +328,11 @@ export default class GameState extends Phaser.State {
 
     this.flash = this.game.add.image(0, 0, grph.generateTexture())
     this.flash.alpha = 0
+  }
+
+  onSettingsButtonClicked () {
+    this.gameState = GameState.STATE_PAUSED
+    this.settingsPopup.visible = true
   }
 
   createAnimals (animals) {
@@ -362,8 +382,9 @@ export default class GameState extends Phaser.State {
           this.currentInterval = setInterval(this.playTakeSound.bind(this), GameState.SOUND_REPEAT_DURATION)
         }
       })
-      this.screenshot()
       this.photoList.push(this.palaroidFrame)
+
+      this.screenshot(true)
     } else { // Wrong selection
       if (this.currentSound) {
         this.currentSound.stop()
@@ -374,9 +395,9 @@ export default class GameState extends Phaser.State {
       })
       clearInterval(this.currentInterval)
       this.currentInterval = setInterval(this.playTakeSound.bind(this), GameState.SOUND_REPEAT_DURATION)
-    }
 
-    this.screenshot()
+      this.screenshot(false)
+    }
   }
 
   playSound (key, callback) {

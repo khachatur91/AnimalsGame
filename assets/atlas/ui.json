@@ -1,6 +1,22 @@
 {"frames": [
 
 {
+	"filename": "checkBox",
+	"frame": {"x":299,"y":947,"w":58,"h":56},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":4,"w":58,"h":56},
+	"sourceSize": {"w":64,"h":64}
+},
+{
+	"filename": "checkMark",
+	"frame": {"x":2,"y":976,"w":36,"h":27},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":19,"w":36,"h":27},
+	"sourceSize": {"w":64,"h":64}
+},
+{
 	"filename": "frameCenter",
 	"frame": {"x":2,"y":679,"w":294,"h":294},
 	"rotated": false,
@@ -10,7 +26,7 @@
 },
 {
 	"filename": "frameCorner",
-	"frame": {"x":447,"y":679,"w":90,"h":88},
+	"frame": {"x":566,"y":571,"w":90,"h":88},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":90,"h":88},
@@ -26,7 +42,7 @@
 },
 {
 	"filename": "nextButton",
-	"frame": {"x":299,"y":679,"w":145,"h":120},
+	"frame": {"x":432,"y":679,"w":145,"h":120},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":145,"h":120},
@@ -41,6 +57,30 @@
 	"sourceSize": {"w":561,"h":674}
 },
 {
+	"filename": "popupBg",
+	"frame": {"x":566,"y":85,"w":442,"h":389},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":442,"h":389},
+	"sourceSize": {"w":442,"h":390}
+},
+{
+	"filename": "reset",
+	"frame": {"x":299,"y":679,"w":130,"h":131},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":131},
+	"sourceSize": {"w":130,"h":131}
+},
+{
+	"filename": "settings",
+	"frame": {"x":299,"y":813,"w":130,"h":131},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":130,"h":131},
+	"sourceSize": {"w":130,"h":131}
+},
+{
 	"filename": "settingsBg",
 	"frame": {"x":566,"y":2,"w":454,"h":80},
 	"rotated": false,
@@ -50,7 +90,7 @@
 },
 {
 	"filename": "timerFrame",
-	"frame": {"x":299,"y":802,"w":204,"h":91},
+	"frame": {"x":566,"y":477,"w":204,"h":91},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":91},
@@ -63,6 +103,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5c47a01fd95d993f4b05f02a55f3a2c4:802f06eaa409758796ce3f3520d49529:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:67ce158427a11f40e723f0d764ac9cd1:8137b6fd61b58fb1a52330d4a491dd5b:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

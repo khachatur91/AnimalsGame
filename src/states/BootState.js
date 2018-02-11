@@ -1,10 +1,14 @@
 import Phaser from 'phaser'
 import Game from '../main'
+import WebFont from 'webfontloader'
 
 export default class BootState extends Phaser.State {
   init () {
+    this.fontsReady = false
+    this.fontsLoaded = this.fontsLoaded.bind(this)
+
     const lang = this.getParameterByName('lang')
-    this.game.lang = lang;
+    this.game.lang = lang || 'en'
 
     this.game.renderer.renderSession.roundPixels = true
 
@@ -24,11 +28,23 @@ export default class BootState extends Phaser.State {
   }
 
   preload () {
+    WebFont.load({
+      google: {
+        families: ['Luckiest Guy']
+      },
+      active: this.fontsLoaded
+    })
     this.game.load.image('logo', 'assets/logo.png')
     this.game.load.start()
   }
 
-  create () {
-    this.state.start(Game.STATE_SPLASH)
+  render () {
+    if (this.fontsReady) {
+      this.state.start(Game.STATE_SPLASH)
+    }
+  }
+
+  fontsLoaded () {
+    this.fontsReady = true
   }
 }
