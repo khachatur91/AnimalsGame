@@ -24,23 +24,31 @@ export default class SettingsPopup extends Phaser.Group {
     this.panel = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'popupBg', this)
     this.panel.anchor.set(0.5, 0.5)
 
-    this.submitButton = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'nextButton', this)
+    this.submitButton = this.game.add.sprite(this.game.width / 2, this.game.height / 2 + 200, 'ui', 'submit', this)
     this.submitButton.inputEnabled = true
+    this.submitButton.anchor.set(0.5, 0.5)
     this.submitButton.events.onInputDown.add(this.onSubmit, this)
 
-    this.voiceLabel = this.game.add.text(this.game.width / 2 + 30, this.game.height / 2 - 100, 'Voice', {font: '60px Luckiest Guy', fill: '#d8ab25'}, this)
-    this.voiceLabel.anchor.set(1, 0.5)
+    this.submitLabel = this.game.add.text(0, 0, 'PLAY', {font: '50px Luckiest Guy', fill: '#ffffff'}, this)
+    this.submitLabel.anchor.set(0.5, 0.5)
+    this.submitLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
+    this.submitButton.addChild(this.submitLabel)
+
+    this.voiceLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 - 100, ' VOICE', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
+    this.voiceLabel.anchor.set(0, 0.5)
     this.voiceLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
-    this.namesLabel = this.game.add.text(this.game.width / 2 + 30, this.game.height / 2, 'Names', {font: '60px Luckiest Guy', fill: '#d8ab25'}, this)
-    this.namesLabel.anchor.set(1, 0.5)
+
+    this.namesLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2, ' NAMES', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
+    this.namesLabel.anchor.set(0, 0.5)
     this.namesLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
-    this.pinyinLabel = this.game.add.text(this.game.width / 2 + 30, this.game.height / 2 + 100, 'Pinyin', {font: '60px Luckiest Guy', fill: '#d8ab25'}, this)
-    this.pinyinLabel.anchor.set(1, 0.5)
+    this.pinyinLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 100, ' PINYIN', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
+    this.pinyinLabel.anchor.set(0, 0.5)
     this.pinyinLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
 
     this.voiceButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 - 100, 'ui', 'checkBox', this)
     this.voiceButton.inputEnabled = true
     this.voiceButton.anchor.set(0.5, 0.5)
+    this.voiceButton.scale.set(1.5)
     this.voiceButton.events.onInputDown.add(this.onVoiceSubmit, this)
 
     this.voiceCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
@@ -51,6 +59,7 @@ export default class SettingsPopup extends Phaser.Group {
     this.namesButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2, 'ui', 'checkBox', this)
     this.namesButton.inputEnabled = true
     this.namesButton.anchor.set(0.5, 0.5)
+    this.namesButton.scale.set(1.5)
     this.namesButton.events.onInputDown.add(this.onNamesSubmit, this)
 
     this.namesCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
@@ -61,6 +70,7 @@ export default class SettingsPopup extends Phaser.Group {
     this.pinyinButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 + 100, 'ui', 'checkBox', this)
     this.pinyinButton.inputEnabled = true
     this.pinyinButton.anchor.set(0.5, 0.5)
+    this.pinyinButton.scale.set(1.5)
     this.pinyinButton.events.onInputDown.add(this.onPinyinSubmit, this)
 
     this.pinyinCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')

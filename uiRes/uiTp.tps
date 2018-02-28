@@ -199,6 +199,20 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">checkBox.png</key>
+            <key type="filename">checkMark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">frameCenter.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -265,6 +279,33 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">popupBg.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>111,98,221,195</rect>
+                <key>scale9Paddings</key>
+                <rect>111,98,221,195</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">reset.png</key>
+            <key type="filename">settings.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>33,33,65,65</rect>
+                <key>scale9Paddings</key>
+                <rect>33,33,65,65</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">settingsBg.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -275,6 +316,19 @@
                 <rect>114,20,227,40</rect>
                 <key>scale9Paddings</key>
                 <rect>114,20,227,40</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">submit.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>53,18,106,37</rect>
+                <key>scale9Paddings</key>
+                <rect>53,18,106,37</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

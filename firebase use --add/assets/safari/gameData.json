@@ -1,0 +1,86 @@
+{
+  "levels": [
+    [
+      {
+        "key": "eagle",
+        "en": "Bird",
+        "ch": "Bird",
+        "x": 2800,
+        "y": 300,
+        "scale": 0.3
+      },
+      {
+        "key": "elephant",
+        "en": "Elephant",
+        "ch": "Elephant",
+        "x": 1600,
+        "y": 740,
+        "scale": -0.5
+      },
+      {
+        "key": "giraffe",
+        "en": "Giraffe",
+        "ch": "Giraffe",
+        "x": 3130,
+        "y": 750,
+        "scale": -0.6
+      },
+      {
+        "key": "hippo",
+        "en": "Hippopotamus",
+        "ch": "Hippopotamus",
+        "x": 3250,
+        "y": 1000,
+        "scale": -0.6
+      },
+      {
+        "key": "lion",
+        "en": "Lion",
+        "ch": "Lion",
+        "x": 650,
+        "y": 870,
+        "scale": 0.7
+      },
+      {
+        "key": "monkey",
+        "en": "Monkey",
+        "ch": "Monkey",
+        "x": 2300,
+        "y": 950,
+        "scale": 0.4
+      },
+      {
+        "key": "rhino",
+        "en": "Rhinoceros",
+        "ch": "Rhinoceros",
+        "x": 1300,
+        "y": 1060,
+        "scale": 0.7
+      },
+      {
+        "key": "snake",
+        "en": "Snake",
+        "ch": "Snake",
+        "x": 3800,
+        "y": 1050,
+        "scale": 0.4
+      },
+      {
+        "key": "zebra",
+        "en": "Zebra",
+        "ch": "Zebra",
+        "x": 2700,
+        "y": 1000,
+        "scale": 0.6
+      },
+      {
+        "key": "tiger",
+        "en": "Tiger",
+        "ch": "Tiger",
+        "x": 1000,
+        "y": 750,
+        "scale": 0.4
+      }
+    ]
+  ]
+}

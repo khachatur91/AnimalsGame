@@ -8,6 +8,7 @@ export default class GameState extends Phaser.State {
   static STATE_IN_GAME = 0
   static STATE_LEVEL_COMPLETE = 1
   static STATE_PAUSED = 2
+  static STATE_INIT = 3
 
   static SOUND_REPEAT_DURATION = 10000;
   static SCROLL_SPEED = 10;
@@ -20,6 +21,7 @@ export default class GameState extends Phaser.State {
       enableLabel: true,
       enablePinyin: false
     }
+
     this.stage.backgroundColor = '#9df6e4'
 
     this.levelAnimals = this.game.cache.getJSON('gameData').levels
@@ -43,19 +45,61 @@ export default class GameState extends Phaser.State {
     this.createPhotoFrame()
     this.createUI()
 
-    this.gameState = GameState.STATE_PAUSED
+    this.gameState = GameState.STATE_INIT
 
     this.settingsPopup = new SettingsPopup(this.game)
     this.settingsPopup.submitAction.add(this.onSettings, this)
     this.game.world.add(this.settingsPopup)
-    this.settingsPopup.visible = false
 
     this.restartPopup = new RestartPopup(this.game)
     this.restartPopup.submitAction.add(this.onRestart, this)
     this.game.world.add(this.restartPopup)
     this.restartPopup.visible = false
+  }
 
-    this.startLevel()
+  update () {
+    if (this.gameState === GameState.STATE_LEVEL_COMPLETE) {
+      return
+    }
+    this.currentTime += this.time.elapsed
+
+    if (this.gameState === GameState.STATE_IN_GAME) {
+      this.takeSoundTime += this.time.elapsed
+    }
+
+    if (this.takeSoundTime > GameState.SOUND_REPEAT_DURATION) {
+      this.takeSoundTime = 0
+      this.playTakeSound()
+    }
+
+    if (this.currentTime > 1000) {
+      this.currentTime = this.currentTime % 1000
+
+      this.timeRemained --
+      if (this.timeRemained === 15) {
+        if (this.currentSound && this.currentSound.isPlaying) {
+          this.currentSound.onStop.addOnce(() => {
+            this.currentSound = this.audioManager.play('time')
+          })
+        } else {
+          this.currentSound = this.audioManager.play('time')
+        }
+      }
+
+      this.timerLabel.text = timeToMMSS(this.timeRemained)
+
+      if (this.timeRemained === 0) {
+        if (this.currentSound && this.currentSound.isPlaying) {
+          this.currentSound.onStop.addOnce(() => {
+            this.onLevelComplete()
+            this.audioManager.play('lose')
+          })
+        } else {
+          this.onLevelComplete()
+          this.audioManager.play('lose')
+        }
+      }
+    }
   }
 
   onRestart () {
@@ -66,10 +110,14 @@ export default class GameState extends Phaser.State {
   }
 
   onSettings (data) {
-    this.gameState = GameState.STATE_IN_GAME
     this.settings = data
     this.audioManager.isEnabled = this.settings.enableVoice
     this.nameFrame.visible = this.settings.enableLabel
+
+    if (this.gameState === GameState.STATE_INIT) {
+      this.startLevel()
+    }
+    this.gameState = GameState.STATE_IN_GAME
   }
 
   startLevel () {
@@ -81,46 +129,15 @@ export default class GameState extends Phaser.State {
     this.gameState = GameState.STATE_IN_GAME
     this.photoList = []
 
-    this.currentTime = 1 * 60
-    this.timerLabel.text = timeToMMSS(this.currentTime)
-    this.timerInterval = setInterval(this.secondInterval.bind(this), 1000)
+    this.currentTime = 0
+    this.takeSoundTime = 0
 
-    this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang]
-    this.currentInterval = setInterval(this.playTakeSound.bind(this), GameState.SOUND_REPEAT_DURATION)
+    this.timeRemained = 105
+    this.timerLabel.text = timeToMMSS(this.timeRemained)
+
+    this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
 
     this.playTakeSound()
-  }
-
-  secondInterval () {
-    if (this.gameState !== GameState.STATE_IN_GAME) {
-      return
-    }
-    this.currentTime --
-    if (this.currentTime === 15) {
-      if (this.currentSound && this.currentSound.isPlaying) {
-        this.currentSound.onStop.addOnce(() => {
-          this.currentSound = this.audioManager.play('timeSFX')
-        })
-      } else {
-        this.currentSound = this.audioManager.play('timeSFX')
-      }
-    }
-
-    this.timerLabel.text = timeToMMSS(this.currentTime)
-
-    if (this.currentTime === 0) {
-      clearInterval(this.timerInterval)
-      clearInterval(this.currentInterval)
-      if (this.currentSound && this.currentSound.isPlaying) {
-        this.currentSound.onStop.addOnce(() => {
-          this.audioManager.play('loseSFX')
-        })
-      } else {
-        this.audioManager.play('loseSFX')
-      }
-
-      this.onLevelComplete()
-    }
   }
 
   onLevelComplete () {
@@ -157,7 +174,7 @@ export default class GameState extends Phaser.State {
     if (!this.settings.enableVoice) {
       this.gameState = GameState.STATE_PAUSED
     }
-    this.audioManager.play('photoSFX')
+    this.audioManager.play('photo')
     const pos = this.game.input.activePointer.position
 
     const tweenPalaroid = this.game.add.tween(this.palaroidFrame)
@@ -176,7 +193,6 @@ export default class GameState extends Phaser.State {
         this.palaroidFrame.visible = false
         this.palaroidFrame.rotation = 0
         this.palaroidFrame.position.set(0, 0)
-        this.showUI()
         this.createPhotoFrame()
         if (!this.settings.enableVoice) {
           this.gameState = GameState.STATE_IN_GAME
@@ -198,12 +214,13 @@ export default class GameState extends Phaser.State {
       pic.anchor.set(0.5, 0.5)
       this.palaroidFrame.addChild(pic)
       if (addLabel) {
-        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, this.animalsList[this.currentAnimalIndex][this.game.lang])
+        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, ' ' + this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase() + ' ')
         animalName.font = 'Luckiest Guy'
         animalName.fontSize = 60
-        animalName.stroke = '#342511'
-        animalName.strokeThickness = 8
+        // animalName.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
         animalName.fill = '#d8ab25'
+        animalName.stroke = '#000000'
+        animalName.strokeThickness = 4
         animalName.anchor.set(0.5, 0.5)
         this.palaroidFrame.addChild(animalName)
       }
@@ -216,6 +233,9 @@ export default class GameState extends Phaser.State {
   }
 
   scrollRightStep () {
+    if (this.buttonTween.isRunning) {
+      this.buttonTween.stop()
+    }
     this.currentPage = 1
 
     let tween = this.game.add.tween(this.container3)
@@ -277,17 +297,6 @@ export default class GameState extends Phaser.State {
 
   createUI () {
     this.photoFrame = this.game.add.group()
-    // this.photoCenterFrame = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'frameCenter', this.photoFrame)
-    // this.photoCenterFrame.anchor.set(0.5, 0.5)
-    // this.tlCornerFrame = this.game.add.image(0, 0, 'ui', 'frameCorner', this.photoFrame)
-    // this.trCornerFrame = this.game.add.image(this.game.width, 0, 'ui', 'frameCorner', this.photoFrame)
-    // this.trCornerFrame.scale.x = -1
-    // this.blCornerFrame = this.game.add.image(0, this.game.height, 'ui', 'frameCorner', this.photoFrame)
-    // this.blCornerFrame.scale.y = -1
-    // this.brCornerFrame = this.game.add.image(this.game.width, this.game.height, 'ui', 'frameCorner', this.photoFrame)
-    // this.brCornerFrame.scale.x = -1
-    // this.brCornerFrame.scale.y = -1
-    // this.photoFrame.alpha = 0.6
 
     this.settingsButton = this.game.add.button(20, 20, 'ui', this.onSettingsButtonClicked, this, 'settings', 'settings', 'settings', 'settings')
 
@@ -300,21 +309,31 @@ export default class GameState extends Phaser.State {
     this.timerFrame.addChild(this.timerLabel)
     this.timerFrame.visible = false
 
-    this.nameFrame = this.game.add.image(this.game.width / 2, this.game.height, 'ui', 'nameFrame')
+    this.nameFrame = this.game.add.image(this.game.width / 2, this.game.height + 30, 'ui', 'nameFrame')
     this.nameFrame.anchor.x = 0.5
     this.nameFrame.anchor.y = 1
     this.nameFrame.visible = false
 
-    this.nameLabel = this.game.add.text(0, 0, '', {font: '40px Luckiest Guy'})
+    this.nameLabel = this.game.add.text(0, -35, '', {font: 'Luckiest Guy'})
     this.nameLabel.anchor.x = 0.5
     this.nameLabel.anchor.y = 1
     this.nameLabel.fontSize = 50
     this.nameLabel.fill = '#ffffff'
     this.nameFrame.addChild(this.nameLabel)
 
+    this.pinyuinLabel = this.game.add.text(0, -5, '', {font: 'Luckiest Guy'})
+    this.pinyuinLabel.anchor.x = 0.5
+    this.pinyuinLabel.anchor.y = 1
+    this.pinyuinLabel.fontSize = 30
+    this.pinyuinLabel.fill = '#ffffff'
+    this.nameFrame.addChild(this.pinyuinLabel)
+
     this.rightButton = this.game.add.button(this.game.width - 100, this.game.height / 3, 'ui', this.scrollRightStep, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
     this.rightButton.anchor.set(1, 0.5)
     this.rightButton.visible = false
+
+    this.buttonTween = this.game.add.tween(this.rightButton).to({ y: this.rightButton.y + 20 }, 200, 'Linear', true, 0, -1, true)
+    this.buttonTween.start()
 
     this.leftButton = this.game.add.button(100, this.game.height / 3, 'ui', this.scrollLeftStep, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
     this.leftButton.anchor.set(1, 0.5)
@@ -358,28 +377,31 @@ export default class GameState extends Phaser.State {
     }
 
     this.gameState = GameState.STATE_PAUSED
+
+    // Reset the timer for take sound
+    this.takeSoundTime = 0
     // Correct selection
     if (this.animalsList[this.currentAnimalIndex].key === data.frameName) {
-      clearInterval(this.currentInterval)
       if (this.currentSound) {
         this.currentSound.stop()
+      }
+
+      // change the state to stop the timer, if the game is finished
+      if (this.currentAnimalIndex === this.animalsList.length - 1) {
+        this.gameState = GameState.STATE_LEVEL_COMPLETE
       }
       this.playSound(this.animalsList[this.currentAnimalIndex].key + 'Success', () => {
         this.gameState = GameState.STATE_IN_GAME
         this.currentAnimalIndex ++
+        this.showUI()
         if (this.currentAnimalIndex === this.animalsList.length) {
-          clearInterval(this.currentInterval)
-          clearInterval(this.timerInterval)
-
-          this.audioManager.play('winSFX')
+          this.audioManager.play('win')
           this.onLevelComplete()
         } else if (this.gameState === GameState.STATE_IN_GAME) {
           this.nameFrame.visible = this.settings.enableLabel
 
-          this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang]
+          this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
           this.playTakeSound()
-          clearInterval(this.currentInterval)
-          this.currentInterval = setInterval(this.playTakeSound.bind(this), GameState.SOUND_REPEAT_DURATION)
         }
       })
       this.photoList.push(this.palaroidFrame)
@@ -391,10 +413,8 @@ export default class GameState extends Phaser.State {
       }
       this.playSound(this.animalsList[this.currentAnimalIndex].key + 'Wrong', () => {
         this.gameState = GameState.STATE_IN_GAME
-        this.nameFrame.visible = this.settings.enableLabel
+        this.showUI()
       })
-      clearInterval(this.currentInterval)
-      this.currentInterval = setInterval(this.playTakeSound.bind(this), GameState.SOUND_REPEAT_DURATION)
 
       this.screenshot(false)
     }
@@ -405,28 +425,45 @@ export default class GameState extends Phaser.State {
       this.currentSound = this.audioManager.play(key)
       this.currentSound.onStop.addOnce(callback, this)
     } else {
-      callback.call(this)
+      setTimeout(callback.bind(this), 2500)
     }
   }
 
   createBackground (items) {
+    this.game.add.tileSprite(0, 0, 4000, 668, 'background', 'sky', this.container1)
     this.game.add.tileSprite(0, 383, 4000, 429, 'background', 'mountains', this.container1)
-    this.game.add.tileSprite(300, 580, 4300, 158, 'background', 'bgGreen', this.container1)
+    this.game.add.tileSprite(-300, 580, 4300, 158, 'background', 'bgGreen', this.container1)
     this.game.add.tileSprite(0, 600, 4000, 158, 'background', 'bgGreen1', this.container2)
     this.game.add.tileSprite(0, 695, 4000, 274, 'background', 'ground2', this.container2)
+
+    if (this.game.type === 'farm') {
+      this.game.add.image(0, 710, 'background', 'fgGreen', this.container3)
+    }
     this.game.add.tileSprite(0, 806, 4000, 274, 'background', 'ground1', this.container3)
 
-    this.game.add.image(0, 866, 'background', 'groundColor1', this.container3)
-    this.game.add.image(1186, 842, 'background', 'groundColor2', this.container3)
+    if (this.game.type === 'safari') {
+      this.game.add.image(0, 866, 'background', 'groundColor1', this.container3)
+      this.game.add.image(1186, 842, 'background', 'groundColor2', this.container3)
+    }
 
     items.forEach((item) => {
-      const image = this.game.add.image(item.x, item.y, 'background', item.key)
+      let image = this.game.add.image(item.x, item.y, 'background', item.key)
+      if (item.key.substr(0, 4) === 'tree') {
+        const shadow = this.game.add.image(item.x, item.y, 'background', 'shadow')
+        image.position.set(0, 0)
+        image.anchor.set(0.5, 1)
+        image.scale.x = item.scale > 0 ? 1 : -1
+        shadow.addChild(image)
+        image = shadow
+        image.scale = new Phaser.Point(Math.abs(item.scale), Math.abs(item.scale))
+      } else {
+        image.scale = new Phaser.Point(item.scale, Math.abs(item.scale))
+      }
       if (item.y > 806) {
         this.container3.addChild(image)
       } else {
         this.container2.addChild(image)
       }
-      image.scale = new Phaser.Point(item.scale, Math.abs(item.scale))
       image.anchor.set(0.5, 1)
     })
   }
