@@ -4,7 +4,9 @@
       {
         "key": "chicken",
         "en": "Chicken",
-        "ch": "Chicken",
+        "es": "Pollo",
+        "zh": "Chicken",
+        "pinyin": "pinyin",
         "x": 480,
         "y": 850,
         "scale": -0.3
@@ -12,7 +14,9 @@
       {
         "key": "cow",
         "en": "Cow",
-        "ch": "Cow",
+        "es": "Vaca",
+        "zh": "Cow",
+        "pinyin": "pinyin",
         "x": 1300,
         "y": 1090,
         "scale": -0.8
@@ -20,7 +24,9 @@
       {
         "key": "rabbit",
         "en": "Rabbit",
-        "ch": "Rabbit",
+        "es": "Conejo",
+        "zh": "Rabbit",
+        "pinyin": "pinyin",
         "x": 100,
         "y": 950,
         "scale": -0.3
@@ -28,7 +34,9 @@
       {
         "key": "turkey",
         "en": "Turkey",
-        "ch": "Turkey",
+        "es": "Pavo",
+        "zh": "Turkey",
+        "pinyin": "pinyin",
         "x": 800,
         "y": 900,
         "scale": 0.3
@@ -36,7 +44,9 @@
       {
         "key": "donkey",
         "en": "Donkey",
-        "ch": "Donkey",
+        "es": "Burro",
+        "zh": "Donkey",
+        "pinyin": "pinyin",
         "x": 1700,
         "y": 1000,
         "scale": -0.6
@@ -44,7 +54,9 @@
       {
         "key": "duck",
         "en": "Duck",
-        "ch": "Duck",
+        "es": "Pato",
+        "zh": "Duck",
+        "pinyin": "pinyin",
         "x": 3200,
         "y": 900,
         "scale": 0.3
@@ -52,7 +64,9 @@
       {
         "key": "sheep",
         "en": "Sheep",
-        "ch": "Sheep",
+        "es": "Oveja",
+        "zh": "Sheep",
+        "pinyin": "pinyin",
         "x": 2550,
         "y": 1100,
         "scale": 0.5
@@ -60,7 +74,9 @@
       {
         "key": "pig",
         "en": "Pig",
-        "ch": "Pig",
+        "es": "Cerdo",
+        "zh": "Pig",
+        "pinyin": "pinyin",
         "x": 2350,
         "y": 900,
         "scale": 0.4
@@ -68,7 +84,9 @@
       {
         "key": "goat",
         "en": "Goat",
-        "ch": "Goat",
+        "es": "Cabra",
+        "zh": "Goat",
+        "pinyin": "pinyin",
         "x": 3700,
         "y": 1100,
         "scale": 0.7
@@ -76,7 +94,9 @@
       {
         "key": "horse",
         "en": "Horse",
-        "ch": "Horse",
+        "es": "Caballo",
+        "zh": "Horse",
+        "pinyin": "pinyin",
         "x": 2740,
         "y": 750,
         "scale": 0.4

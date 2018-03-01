@@ -4,6 +4,8 @@ import AudioManager from '../AudioManager'
 import {shuffle, timeToMMSS} from '../view/utils'
 import SettingsPopup from '../view/SettingsPopup'
 import RestartPopup from '../view/RestartPopup'
+// import Client from '../client'
+
 export default class GameState extends Phaser.State {
   static STATE_IN_GAME = 0
   static STATE_LEVEL_COMPLETE = 1
@@ -15,6 +17,8 @@ export default class GameState extends Phaser.State {
   static SCROLL_DURATION = 2000;
 
   init () {
+    // Client.askNewPlayer()
+    this.game.stage.disableVisibilityChange = true
     // default settings
     this.settings = {
       enableVoice: true,
@@ -114,6 +118,14 @@ export default class GameState extends Phaser.State {
     this.audioManager.isEnabled = this.settings.enableVoice
     this.nameFrame.visible = this.settings.enableLabel
 
+    if (this.settings.enablePinyin) {
+      this.nameFrame.y = this.game.height
+      this.pinyuinLabel.visible = true
+    } else {
+      this.pinyuinLabel.visible = false
+      this.nameFrame.y = this.game.height + 30
+    }
+
     if (this.gameState === GameState.STATE_INIT) {
       this.startLevel()
     }
@@ -136,6 +148,7 @@ export default class GameState extends Phaser.State {
     this.timerLabel.text = timeToMMSS(this.timeRemained)
 
     this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
+    this.pinyuinLabel.text = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
 
     this.playTakeSound()
   }
@@ -197,7 +210,7 @@ export default class GameState extends Phaser.State {
         if (!this.settings.enableVoice) {
           this.gameState = GameState.STATE_IN_GAME
         }
-      }, 1000)
+      }, 2500)
     })
 
     this.hideUI()
@@ -372,6 +385,7 @@ export default class GameState extends Phaser.State {
   }
 
   onAnimalClick (data) {
+    // Client.sendClick(100, 100)
     if (this.gameState !== GameState.STATE_IN_GAME) {
       return
     }
@@ -401,6 +415,7 @@ export default class GameState extends Phaser.State {
           this.nameFrame.visible = this.settings.enableLabel
 
           this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
+          this.pinyuinLabel.text = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
           this.playTakeSound()
         }
       })

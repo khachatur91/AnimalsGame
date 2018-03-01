@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+    "socket.io": "^1.7.3",
     "phaser-ce": "^2.10.1",
     "phaser-scrollable": "git+https://github.com/trueicecold/phaser-scrollable.git",
     "url": "^0.11.0",

@@ -4,7 +4,9 @@
       {
         "key": "eagle",
         "en": "Bird",
-        "ch": "Bird",
+        "es": "Pajaro",
+        "zh": "Bird",
+        "pinyin": "pinyin",
         "x": 2800,
         "y": 300,
         "scale": 0.3
@@ -12,7 +14,9 @@
       {
         "key": "elephant",
         "en": "Elephant",
-        "ch": "Elephant",
+        "es": "Elefante",
+        "zh": "Elephant",
+        "pinyin": "pinyin",
         "x": 1600,
         "y": 740,
         "scale": -0.5
@@ -20,7 +24,9 @@
       {
         "key": "giraffe",
         "en": "Giraffe",
-        "ch": "Giraffe",
+        "es": "Jirafa",
+        "zh": "Giraffe",
+        "pinyin": "pinyin",
         "x": 3130,
         "y": 750,
         "scale": -0.6
@@ -28,7 +34,9 @@
       {
         "key": "hippo",
         "en": "Hippopotamus",
-        "ch": "Hippopotamus",
+        "es": "Hipopotamo",
+        "zh": "Hippopotamus",
+        "pinyin": "pinyin",
         "x": 3250,
         "y": 1000,
         "scale": -0.6
@@ -36,7 +44,9 @@
       {
         "key": "lion",
         "en": "Lion",
-        "ch": "Lion",
+        "es": "Leon",
+        "zh": "Lion",
+        "pinyin": "pinyin",
         "x": 650,
         "y": 870,
         "scale": 0.7
@@ -44,7 +54,9 @@
       {
         "key": "monkey",
         "en": "Monkey",
-        "ch": "Monkey",
+        "es": "Mono",
+        "zh": "Monkey",
+        "pinyin": "pinyin",
         "x": 2300,
         "y": 950,
         "scale": 0.4
@@ -52,7 +64,9 @@
       {
         "key": "rhino",
         "en": "Rhinoceros",
-        "ch": "Rhinoceros",
+        "es": "Rinoceronte",
+        "zh": "Rhinoceros",
+        "pinyin": "pinyin",
         "x": 1300,
         "y": 1060,
         "scale": 0.7
@@ -60,7 +74,9 @@
       {
         "key": "snake",
         "en": "Snake",
-        "ch": "Snake",
+        "es": "Serpiente",
+        "zh": "Snake",
+        "pinyin": "pinyin",
         "x": 3800,
         "y": 1050,
         "scale": 0.4
@@ -68,7 +84,9 @@
       {
         "key": "zebra",
         "en": "Zebra",
-        "ch": "Zebra",
+        "es": "Cebra",
+        "zh": "Zebra",
+        "pinyin": "pinyin",
         "x": 2700,
         "y": 1000,
         "scale": 0.6
@@ -76,7 +94,9 @@
       {
         "key": "tiger",
         "en": "Tiger",
-        "ch": "Tiger",
+        "es": "Tigre",
+        "zh": "Tiger",
+        "pinyin": "pinyin",
         "x": 1000,
         "y": 750,
         "scale": 0.4

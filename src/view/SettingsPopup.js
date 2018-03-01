@@ -41,9 +41,6 @@ export default class SettingsPopup extends Phaser.Group {
     this.namesLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2, ' NAMES', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
     this.namesLabel.anchor.set(0, 0.5)
     this.namesLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
-    this.pinyinLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 100, ' PINYIN', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
-    this.pinyinLabel.anchor.set(0, 0.5)
-    this.pinyinLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
 
     this.voiceButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 - 100, 'ui', 'checkBox', this)
     this.voiceButton.inputEnabled = true
@@ -67,16 +64,26 @@ export default class SettingsPopup extends Phaser.Group {
     this.namesCheckMark.visible = this.settings.enableLabel
     this.namesButton.addChild(this.namesCheckMark)
 
-    this.pinyinButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 + 100, 'ui', 'checkBox', this)
-    this.pinyinButton.inputEnabled = true
-    this.pinyinButton.anchor.set(0.5, 0.5)
-    this.pinyinButton.scale.set(1.5)
-    this.pinyinButton.events.onInputDown.add(this.onPinyinSubmit, this)
+    if (this.game.lang === 'zh') {
 
-    this.pinyinCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
-    this.pinyinCheckMark.anchor.set(0.5, 0.5)
-    this.pinyinCheckMark.visible = this.settings.enablePinyin
-    this.pinyinButton.addChild(this.pinyinCheckMark)
+      this.pinyinLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 100, ' PINYIN', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
+      this.pinyinLabel.anchor.set(0, 0.5)
+      this.pinyinLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
+
+      this.pinyinButton = this.game.add.sprite(this.game.width / 2 + 130, this.game.height / 2 + 100, 'ui', 'checkBox', this)
+      this.pinyinButton.inputEnabled = true
+      this.pinyinButton.anchor.set(0.5, 0.5)
+      this.pinyinButton.scale.set(1.5)
+      this.pinyinButton.events.onInputDown.add(this.onPinyinSubmit, this)
+
+      this.pinyinCheckMark = this.game.add.image(0, 0, 'ui', 'checkMark')
+      this.pinyinCheckMark.anchor.set(0.5, 0.5)
+      this.pinyinCheckMark.visible = this.settings.enablePinyin
+      this.pinyinButton.addChild(this.pinyinCheckMark)
+    }
+    else {
+      this.submitButton.y = this.game.height / 2 + 100;
+    }
   }
 
   onVoiceSubmit () {
