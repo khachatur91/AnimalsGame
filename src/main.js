@@ -3,7 +3,7 @@
  */
 import Phaser from 'phaser'
 import BootState from './states/BootState'
-import GameState from './states/GameState'
+import GameState from './states/GameStateNew'
 import SplashState from './states/SplashState'
 import config from './config'
 

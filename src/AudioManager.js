@@ -28,7 +28,6 @@ export default class AudioManager {
   play (key) {
     if (this.isEnabled) {
       const sound = this.game.sound.play(key)
-      console.log(sound)
       return sound
     }
   }
