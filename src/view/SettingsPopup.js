@@ -1,4 +1,5 @@
 import Phaser from 'phaser'
+import PhaserNineSlice from '@orange-games/phaser-nineslice/build/phaser-nineslice.js'
 
 export default class SettingsPopup extends Phaser.Group {
   constructor (game) {
@@ -21,8 +22,24 @@ export default class SettingsPopup extends Phaser.Group {
     this.background = this.game.add.image(0, 0, graph.generateTexture(), '', this)
     this.background.interactive = true
 
-    this.panel = this.game.add.image(this.game.width / 2, this.game.height / 2, 'ui', 'popupBg', this)
+    this.panel = new PhaserNineSlice.NineSlice(
+            this.game,           // Phaser.Game
+      this.game.width / 2,            // x position
+      this.game.height / 2,            // y position
+            'ui',      // atlas key
+            'popupBg', // Image frame
+            400,            // expected width
+            400,            // expected height
+      { // And this is the framedata, normally this is passed when preloading. Check README for details
+        top: 20,    // Amount of pixels for top
+        bottom: 20, // Amount of pixels for bottom
+        left: 20,   // Amount of pixels for left
+        right: 20   // Amount of pixels for right
+      }
+    )
     this.panel.anchor.set(0.5, 0.5)
+    this.panel.resize(400, 400)
+    this.add(this.panel)
 
     this.submitButton = this.game.add.sprite(this.game.width / 2, this.game.height / 2 + 200, 'ui', 'submit', this)
     this.submitButton.inputEnabled = true
@@ -65,7 +82,6 @@ export default class SettingsPopup extends Phaser.Group {
     this.namesButton.addChild(this.namesCheckMark)
 
     if (this.game.lang === 'zh') {
-
       this.pinyinLabel = this.game.add.text(this.game.width / 2 - 180, this.game.height / 2 + 100, ' PINYIN', {font: '65px Luckiest Guy', fill: '#ffc600'}, this)
       this.pinyinLabel.anchor.set(0, 0.5)
       this.pinyinLabel.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
@@ -80,9 +96,8 @@ export default class SettingsPopup extends Phaser.Group {
       this.pinyinCheckMark.anchor.set(0.5, 0.5)
       this.pinyinCheckMark.visible = this.settings.enablePinyin
       this.pinyinButton.addChild(this.pinyinCheckMark)
-    }
-    else {
-      this.submitButton.y = this.game.height / 2 + 100;
+    } else {
+      this.submitButton.y = this.game.height / 2 + 100
     }
   }
 

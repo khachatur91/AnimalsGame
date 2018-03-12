@@ -48,9 +48,9 @@ export default class Client {
 
   /**
    * Request for selecting an animal (tutor request)
-   * @param animalName
+   * @param animalKey
    */
-  selectAnimal (animalName) {
-    this.socket.emit('tutorSelectAnimal', {name: animalName})
+  selectAnimal (animalKey) {
+    this.socket.emit('tutorSelectAnimal', {name: animalKey})
   }
 }

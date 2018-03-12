@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Game from '../main'
 import WebFont from 'webfontloader'
+import PhaserNineSlice from '@orange-games/phaser-nineslice/build/phaser-nineslice.js'
 
 export default class BootState extends Phaser.State {
   init () {
@@ -35,6 +36,8 @@ export default class BootState extends Phaser.State {
   }
 
   preload () {
+    console.log(window)
+    this.game.plugins.add(PhaserNineSlice.Plugin)
     WebFont.load({
       google: {
         families: ['Luckiest Guy']

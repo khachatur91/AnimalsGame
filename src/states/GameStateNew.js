@@ -1,11 +1,15 @@
 import Phaser from 'phaser'
 
+import {shuffle} from '../view/utils'
 import AudioManager from '../AudioManager'
-import {shuffle, timeToMMSS} from '../view/utils'
 import SettingsPopup from '../view/SettingsPopup'
 import RestartPopup from '../view/RestartPopup'
 import Client from '../client'
 import GameView from '../view/GameView'
+import Timer from '../view/Timer'
+import AnimalName from '../view/AnimalName'
+import StatusPopup from '../view/StatusPopup'
+import TutorPopup from '../view/TutorPopup'
 
 export default class GameState extends Phaser.State {
   static STATE_IN_GAME = 0
@@ -29,6 +33,12 @@ export default class GameState extends Phaser.State {
 
   onConnected () {
     console.log('CONNECTED')
+    if (this.user === GameState.USER_TUTOR) {
+      this.statusPopup.visible = false
+      this.tutorPopup.visible = true
+    } else {
+      this.statusPopup.updateText('WAITING FOR TUTOR')
+    }
   }
 
   onDisconnected (data) {
@@ -36,7 +46,15 @@ export default class GameState extends Phaser.State {
   }
 
   onSelectAnimalReceived (data) {
+    this.statusPopup.visible = false
     console.log(`animal select: ${data.name}`)
+    this.animalsList.forEach((animalData, index) => {
+      if (animalData.key === data.name) {
+        this.currentAnimalIndex = index
+        this.showUI()
+      }
+    })
+    this.updateAnimal()
   }
 
   onClickReceived (data) {
@@ -91,36 +109,41 @@ export default class GameState extends Phaser.State {
 
     this.gameState = GameState.STATE_INIT
 
-    this.settingsPopup = new SettingsPopup(this.game)
-    this.settingsPopup.submitAction.add(this.onSettings, this)
-    this.game.world.add(this.settingsPopup)
+    if (this.mode === GameState.MODE_SINGLE) {
+      this.settingsPopup = new SettingsPopup(this.game)
+      this.settingsPopup.submitAction.add(this.onSettings, this)
+      this.game.add.existing(this.settingsPopup)
 
-    this.restartPopup = new RestartPopup(this.game)
-    this.restartPopup.submitAction.add(this.onRestart, this)
-    this.game.world.add(this.restartPopup)
-    this.restartPopup.visible = false
+      this.restartPopup = new RestartPopup(this.game)
+      this.restartPopup.submitAction.add(this.onRestart, this)
+      this.game.add.existing(this.restartPopup)
+      this.restartPopup.visible = false
+    } else {
+      this.statusPopup = new StatusPopup(this.game)
+      this.statusPopup.updateText('CONNECTING')
+      this.game.add.existing(this.statusPopup)
+
+      if (this.user === GameState.USER_TUTOR) {
+        this.tutorPopup = new TutorPopup(this.game, this.levelAnimals[0])
+        this.tutorPopup.submitAction.add((animalKey) => {
+          console.log(animalKey)
+          this.client.selectAnimal(animalKey)
+        }, this)
+        this.game.add.existing(this.tutorPopup)
+        this.tutorPopup.visible = false
+      }
+    }
   }
 
-  update () {
-    if (this.gameState === GameState.STATE_LEVEL_COMPLETE) {
-      return
-    }
-    this.currentTime += this.time.elapsed
-
-    if (this.gameState === GameState.STATE_IN_GAME) {
-      this.takeSoundTime += this.time.elapsed
-    }
-
+  onSecondTrigger (timeRemained) {
+    this.takeSoundTime ++
     if (this.takeSoundTime > GameState.SOUND_REPEAT_DURATION) {
       this.takeSoundTime = 0
       this.playTakeSound()
     }
 
-    if (this.currentTime > 1000) {
-      this.currentTime = this.currentTime % 1000
-
-      this.timeRemained --
-      if (this.timeRemained === 15) {
+    switch (timeRemained) {
+      case 15:
         if (this.currentSound && this.currentSound.isPlaying) {
           this.currentSound.onStop.addOnce(() => {
             this.currentSound = this.audioManager.play('time')
@@ -128,24 +151,24 @@ export default class GameState extends Phaser.State {
         } else {
           this.currentSound = this.audioManager.play('time')
         }
-      }
-
-      this.timerLabel.text = timeToMMSS(this.timeRemained)
-
-      if (this.timeRemained === 0) {
-        if (this.currentSound && this.currentSound.isPlaying) {
-          this.currentSound.onStop.addOnce(() => {
-            this.onLevelComplete()
-            this.audioManager.play('lose')
-          })
-        } else {
-          this.onLevelComplete()
-          this.audioManager.play('lose')
-        }
-      }
+        break
+      case 0:
+        this.onTimerComplete()
+        break
     }
   }
 
+  onTimerComplete () {
+    if (this.currentSound && this.currentSound.isPlaying) {
+      this.currentSound.onStop.addOnce(() => {
+        this.onLevelComplete()
+        this.audioManager.play('lose')
+      })
+    } else {
+      this.onLevelComplete()
+      this.audioManager.play('lose')
+    }
+  }
   onRestart () {
     this.photosContainer.removeChildren()
     this.photosContainer.visible = false
@@ -158,11 +181,10 @@ export default class GameState extends Phaser.State {
     this.audioManager.isEnabled = this.settings.enableVoice
     this.nameFrame.visible = this.settings.enableLabel
 
+    this.nameFrame.setPinyuin(this.settings.enablePinyin)
     if (this.settings.enablePinyin) {
       this.nameFrame.y = this.game.height
-      this.pinyuinLabel.visible = true
     } else {
-      this.pinyuinLabel.visible = false
       this.nameFrame.y = this.game.height + 30
     }
 
@@ -179,16 +201,13 @@ export default class GameState extends Phaser.State {
     this.showUI()
 
     this.gameState = GameState.STATE_IN_GAME
+    this.timer.resume()
     this.photoList = []
 
     this.currentTime = 0
     this.takeSoundTime = 0
 
-    this.timeRemained = 105
-    this.timerLabel.text = timeToMMSS(this.timeRemained)
-
-    this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
-    this.pinyuinLabel.text = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
+    this.updateAnimal()
 
     this.playTakeSound()
   }
@@ -302,16 +321,20 @@ export default class GameState extends Phaser.State {
   }
 
   hideUI () {
-    this.settingsButton.visible = false
+    if (this.mode === GameState.MODE_SINGLE) {
+      this.settingsButton.visible = false
+    }
     this.photoFrame.visible = false
     this.rightButton.visible = false
     this.leftButton.visible = false
-    this.timerFrame.visible = false
+    this.timer.visible = false
     this.nameFrame.visible = false
   }
 
   showUI () {
-    this.settingsButton.visible = true
+    if (this.mode === GameState.MODE_SINGLE) {
+      this.settingsButton.visible = true
+    }
     this.photoFrame.visible = true
     if (this.currentPage === 0) {
       this.rightButton.visible = true
@@ -319,43 +342,26 @@ export default class GameState extends Phaser.State {
       this.leftButton.visible = true
     }
     // When the sound is turned off, the label should become visible here and not after sound finishes
+    console.log(this.settings.enableLabel)
     this.nameFrame.visible = this.settings.enableLabel
 
-    this.timerFrame.visible = true
+    this.timer.visible = true
   }
 
   createUI () {
     this.photoFrame = this.game.add.group()
 
-    this.settingsButton = this.game.add.button(20, 20, 'ui', this.onSettingsButtonClicked, this, 'settings', 'settings', 'settings', 'settings')
+    if (this.mode === GameState.MODE_SINGLE) {
+      this.settingsButton = this.game.add.button(20, 20, 'ui', this.onSettingsButtonClicked, this, 'settings', 'settings', 'settings', 'settings')
+    }
 
-    this.timerFrame = this.game.add.sprite(this.game.width / 2, 0, 'ui', 'timerFrame')
-    this.timerFrame.anchor.x = 0.5
-    this.timerLabel = this.game.add.text(0, 10, '00:00', {font: '40px Luckiest Guy'})
-    this.timerLabel.anchor.x = 0.5
-    this.timerLabel.fontSize = 50
-    this.timerLabel.fill = '#ffffff'
-    this.timerFrame.addChild(this.timerLabel)
-    this.timerFrame.visible = false
+    this.timer = new Timer(this.game, 105)
+    this.timer.signalSecondTrigger.add(this.onSecondTrigger, this)
+    this.timer.visible = false
 
-    this.nameFrame = this.game.add.image(this.game.width / 2, this.game.height + 30, 'ui', 'nameFrame')
-    this.nameFrame.anchor.x = 0.5
-    this.nameFrame.anchor.y = 1
+    this.nameFrame = new AnimalName(this.game)
+    this.game.add.existing(this.nameFrame)
     this.nameFrame.visible = false
-
-    this.nameLabel = this.game.add.text(0, -35, '', {font: 'Luckiest Guy'})
-    this.nameLabel.anchor.x = 0.5
-    this.nameLabel.anchor.y = 1
-    this.nameLabel.fontSize = 50
-    this.nameLabel.fill = '#ffffff'
-    this.nameFrame.addChild(this.nameLabel)
-
-    this.pinyuinLabel = this.game.add.text(0, -5, '', {font: 'Luckiest Guy'})
-    this.pinyuinLabel.anchor.x = 0.5
-    this.pinyuinLabel.anchor.y = 1
-    this.pinyuinLabel.fontSize = 30
-    this.pinyuinLabel.fill = '#ffffff'
-    this.nameFrame.addChild(this.pinyuinLabel)
 
     this.rightButton = this.game.add.button(this.game.width - 100, this.game.height / 3, 'ui', this.scrollRightStep, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
     this.rightButton.anchor.set(1, 0.5)
@@ -393,7 +399,7 @@ export default class GameState extends Phaser.State {
     }
 
     this.gameState = GameState.STATE_PAUSED
-
+    this.timer.pause()
     // Reset the timer for take sound
     this.takeSoundTime = 0
     // Correct selection
@@ -408,6 +414,7 @@ export default class GameState extends Phaser.State {
       }
       this.playSound(this.animalsList[this.currentAnimalIndex].key + 'Success', () => {
         this.gameState = GameState.STATE_IN_GAME
+        this.timer.resume()
         this.currentAnimalIndex ++
         this.showUI()
         if (this.currentAnimalIndex === this.animalsList.length) {
@@ -416,8 +423,7 @@ export default class GameState extends Phaser.State {
         } else if (this.gameState === GameState.STATE_IN_GAME) {
           this.nameFrame.visible = this.settings.enableLabel
 
-          this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
-          this.pinyuinLabel.text = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
+          this.updateAnimal()
           this.playTakeSound()
         }
       })
@@ -431,10 +437,21 @@ export default class GameState extends Phaser.State {
       this.playSound(this.animalsList[this.currentAnimalIndex].key + 'Wrong', () => {
         this.gameState = GameState.STATE_IN_GAME
         this.showUI()
+        this.timer.resume()
       })
 
       this.screenshot(false)
     }
+  }
+
+  update () {
+    this.timer.update()
+  }
+
+  updateAnimal () {
+    const label = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
+    const pinyin = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
+    this.nameFrame.updateText(label, pinyin)
   }
 
   playSound (key, callback) {
