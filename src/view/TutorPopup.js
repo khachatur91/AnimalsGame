@@ -38,11 +38,16 @@ export default class TutorPopup extends Phaser.Group {
     this.add(this.panel)
 
     this.animalsList.forEach((animalData, index) => {
-      console.log(animalData)
       const lang = this.game.lang
-      console.log(animalData[lang])
 
-      const animalName = this.game.add.text(0, -300 + index * 60, animalData[this.game.lang], {font: '75px Luckiest Guy', fill: '#ffffff'}, this)
+      const animalName = this.game.add.text(0, -300 + index * 60, animalData[lang], {font: '75px Luckiest Guy', fill: '#ffffff'}, this)
+      animalName.inputEnabled = true
+      animalName.events.onInputDown.add(() => {
+        this.animalNames[this.selectedIndex].fill = '#ffffff'
+        this.selectedIndex = this.animalNames.indexOf(animalName)
+        this.selectedIndex = (this.selectedIndex + this.animalNames.length) % this.animalNames.length
+        this.animalNames[this.selectedIndex].fill = '#ffc600'
+      }, this)
       animalName.anchor.set(0.5, 0.5)
       animalName.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
       this.panel.addChild(animalName)
@@ -67,6 +72,9 @@ export default class TutorPopup extends Phaser.Group {
 
     const key2 = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN)
     key2.onDown.add(this.selectNameDown, this)
+
+    const key3 = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER)
+    key3.onDown.add(this.onSubmit, this)
   }
 
   selectNameUp () {

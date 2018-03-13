@@ -4,7 +4,6 @@ import AudioManager from '../AudioManager'
 import {shuffle, timeToMMSS} from '../view/utils'
 import SettingsPopup from '../view/SettingsPopup'
 import RestartPopup from '../view/RestartPopup'
-import Client from '../client'
 
 export default class GameState extends Phaser.State {
   static STATE_IN_GAME = 0
@@ -12,55 +11,11 @@ export default class GameState extends Phaser.State {
   static STATE_PAUSED = 2
   static STATE_INIT = 3
 
-  static MODE_SINGLE = 1
-  static MODE_STUDENT = 2
-
-  static USER_STUDENT = 1
-  static USER_TUTOR = 2
-
   static SOUND_REPEAT_DURATION = 10000;
   static SCROLL_SPEED = 10;
   static SCROLL_DURATION = 2000;
 
-  onNewPlayer (data) {
-    console.log(data)
-  }
-
-  onConnected () {
-    console.log('CONNECTED')
-  }
-
-  onDisconnected (data) {
-    console.log('DISCONNECTED: ' + data.message)
-  }
-
-  onSelectAnimalReceived (data) {
-    console.log(`animal select: ${data.name}`)
-  }
-
-  onClickReceived (data) {
-    console.log(`click received: ${data.x} ${data.y}`)
-  }
-
   init () {
-    if (this.game.roomID && this.game.user) {
-      this.mode = GameState.MODE_STUDENT
-      if (this.game.user === 'student') {
-        this.user = GameState.USER_STUDENT
-      } else if (this.game.user === 'tutor') {
-        this.user = GameState.USER_TUTOR
-      }
-      this.client = new Client(this)
-      this.client.signalClick.add(this.onClickReceived, this)
-      this.client.signalSelectAnimal.add(this.onSelectAnimalReceived, this)
-      this.client.signalConnected.add(this.onConnected, this)
-      this.client.signalDisconnected.add(this.onDisconnected, this)
-
-      this.client.connectUser(this.game.type, this.game.user, this.game.roomID)
-    } else {
-      this.mode = GameState.MODE_SINGLE
-    }
-
     this.game.stage.disableVisibilityChange = true
     // default settings
     this.settings = {
@@ -428,10 +383,6 @@ export default class GameState extends Phaser.State {
   }
 
   onAnimalClick (data) {
-    if (this.user === GameState.USER_STUDENT) {
-      this.client.sendClick(100, 100, this.currentPage, data.frameName)
-    }
-
     if (this.gameState !== GameState.STATE_IN_GAME) {
       return
     }

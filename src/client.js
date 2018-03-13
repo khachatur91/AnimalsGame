@@ -1,7 +1,9 @@
 import io from 'socket.io-client'
 import * as Phaser from 'phaser-ce'
 
-const socket = io('http://localhost:4000')
+const port = process.env.PORT || 4000
+const host = process.env.IP || 'localhost'
+const socket = io(`http://${host}:${port}`)
 
 export default class Client {
   constructor () {
@@ -43,7 +45,9 @@ export default class Client {
    * @param y
    */
   sendClick (x, y, page, selectedAnimal) {
-    this.socket.emit('studentClick', {x, y, page, selectedAnimal})
+    const data = {x, y, page, selectedAnimal}
+    console.log(`sendClick ${data}`)
+    this.socket.emit('studentClick', data)
   }
 
   /**
@@ -51,6 +55,7 @@ export default class Client {
    * @param animalKey
    */
   selectAnimal (animalKey) {
+    console.log(`selectAnimal ${animalKey}`)
     this.socket.emit('tutorSelectAnimal', {name: animalKey})
   }
 }

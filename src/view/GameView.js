@@ -12,8 +12,6 @@ export default class GameView extends Phaser.Group {
 
   init () {
     this.signalAnimalClick = new Phaser.Signal()
-    this.currentPage = 0
-
     this.container1 = this.game.add.group()
     this.container2 = this.game.add.group()
     this.container3 = this.game.add.group()
@@ -27,8 +25,6 @@ export default class GameView extends Phaser.Group {
   }
 
   scrollRightStep () {
-    this.currentPage = 1
-
     let tween = this.game.add.tween(this.container3)
     tween.to({x: -(4000 - this.game.canvas.width)}, GameView.SCROLL_DURATION)
     tween.start()
@@ -43,8 +39,6 @@ export default class GameView extends Phaser.Group {
   }
 
   scrollLeftStep () {
-    this.currentPage = 0
-
     let tween = this.game.add.tween(this.container3)
     tween.to({x: 0}, GameView.SCROLL_DURATION)
     tween.start()

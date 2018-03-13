@@ -30,12 +30,13 @@ export default class GameState extends Phaser.State {
 
   onDisconnected (data) {
     console.log('DISCONNECTED: ' + data.message)
+    this.statusPopup.visible = true
+    this.statusPopup.updateText(data.message.toUpperCase())
   }
 
   onSelectAnimalReceived (data) {
     this.gameState = GameState.STATE_IN_GAME
     this.statusPopup.visible = false
-    console.log(`animal select: ${data.name}`)
     this.animalsList.forEach((animalData, index) => {
       if (animalData.key === data.name) {
         this.currentAnimalIndex = index
@@ -46,8 +47,15 @@ export default class GameState extends Phaser.State {
   }
 
   onClickReceived (data) {
-    console.log(`click received: ${data.x} ${data.y}`)
-    this.takeScreenshot(data.selectedAnimal, {x: data.x, y: data.y})
+    if (data.selectedAnimal.length === 0) {
+      if (data.page === 0) {
+        this.scrollLeftStep()
+      } else {
+        this.scrollRightStep()
+      }
+    } else {
+      this.takeScreenshot(data.selectedAnimal, {x: data.x, y: data.y})
+    }
   }
 
   init () {
@@ -168,21 +176,23 @@ export default class GameState extends Phaser.State {
   }
 
   scrollRightStep () {
-    if (this.user === GameState.USER_TUTOR) {
-      return
-    }
     if (this.buttonTween.isRunning) {
       this.buttonTween.stop()
     }
-    this.gameView.scrollRightStep()
 
+    this.currentPage = 1
+    this.gameView.scrollRightStep()
+    if (this.user === GameState.USER_STUDENT) {
+      this.client.sendClick(0, 0, this.currentPage, '')
+    }
     this.rightButton.visible = false
     this.leftButton.visible = true
   }
 
   scrollLeftStep () {
-    if (this.user === GameState.USER_TUTOR) {
-      return
+    this.currentPage = 0
+    if (this.user === GameState.USER_STUDENT) {
+      this.client.sendClick(0, 0, this.currentPage, '')
     }
     this.gameView.scrollLeftStep()
     this.leftButton.visible = false
@@ -213,15 +223,14 @@ export default class GameState extends Phaser.State {
     this.nameFrame = new AnimalName(this.game)
     this.game.add.existing(this.nameFrame)
     this.nameFrame.visible = false
-
-    this.rightButton = this.game.add.button(this.game.width - 100, this.game.height / 3, 'ui', this.scrollRightStep, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
+    this.rightButton = this.game.add.button(this.game.width - 100, this.game.height / 3, 'ui', this.user === GameState.USER_STUDENT ? this.scrollRightStep : null, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
     this.rightButton.anchor.set(1, 0.5)
     this.rightButton.visible = false
 
     this.buttonTween = this.game.add.tween(this.rightButton).to({ y: this.rightButton.y + 20 }, 200, 'Linear', true, 0, -1, true)
     this.buttonTween.start()
 
-    this.leftButton = this.game.add.button(100, this.game.height / 3, 'ui', this.scrollLeftStep, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
+    this.leftButton = this.game.add.button(100, this.game.height / 3, 'ui', this.user === GameState.USER_STUDENT ? this.scrollLeftStep : null, this, 'nextButton', 'nextButton', 'nextButton', 'nextButton')
     this.leftButton.anchor.set(1, 0.5)
     this.leftButton.scale.x = -1
     this.leftButton.visible = false

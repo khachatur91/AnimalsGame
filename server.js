@@ -9,7 +9,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/dist/index.html')
 })
 
-server.listen(4000, function () {
+server.listen(process.env.PORT || 4000, function () {
   console.log('Listening on ' + server.address().port)
 })
 
@@ -52,28 +52,30 @@ io.on('connection', function (socket) {
       console.log('Successful Connection')
       io.sockets.connected[socket.room.tutorSocketId].emit('connected')
       io.sockets.connected[socket.room.studentSocketId].emit('connected')
-
-      socket.on('studentClick', function (data) {
-        io.sockets.connected[socket.room.tutorSocketId].emit('studentClick', data)
-      })
-      socket.on('tutorSelectAnimal', function (data) {
-        io.sockets.connected[socket.room.studentSocketId].emit('tutorSelectAnimal', data)
-        io.sockets.connected[socket.room.tutorSocketId].emit('tutorSelectAnimal', data)
-      })
-
-      socket.on('disconnect', function () {
-        if (socket.id === socket.room.tutorSocketId) {
-          socket.room.tutorSocketId = null
-          if (io.sockets.connected[socket.room.tutorSocketId]) {
-            io.sockets.connected[socket.room.studentSocketId].emit('disconnected', {message: 'Tutor is disconnected from the room', response: 301})
-          }
-        } else {
-          socket.room.studentSocketId = null
-          if (io.sockets.connected[socket.room.tutorSocketId]) {
-            io.sockets.connected[socket.room.tutorSocketId].emit('disconnected', {message: 'Student is disconnected from the room', response: 301})
-          }
-        }
-      })
     }
+
+    socket.on('studentClick', function (data) {
+      console.log(`studentClick ${data}`)
+      io.sockets.connected[socket.room.tutorSocketId].emit('studentClick', data)
+    })
+    socket.on('tutorSelectAnimal', function (data) {
+      console.log(`tutorSelectAnimal ${data}`)
+      io.sockets.connected[socket.room.studentSocketId].emit('tutorSelectAnimal', data)
+      io.sockets.connected[socket.room.tutorSocketId].emit('tutorSelectAnimal', data)
+    })
+
+    socket.on('disconnect', function () {
+      if (socket.id === socket.room.tutorSocketId) {
+        socket.room.tutorSocketId = null
+        if (io.sockets.connected[socket.room.studentSocketId]) {
+          io.sockets.connected[socket.room.studentSocketId].emit('disconnected', {message: 'Tutor is disconnected from the room', response: 301})
+        }
+      } else {
+        socket.room.studentSocketId = null
+        if (io.sockets.connected[socket.room.tutorSocketId]) {
+          io.sockets.connected[socket.room.tutorSocketId].emit('disconnected', {message: 'Student is disconnected from the room', response: 301})
+        }
+      }
+    })
   })
 })
