@@ -19,12 +19,14 @@ export default class AnimalName extends Phaser.Group {
     this.nameLabel.fill = '#ffffff'
     this.nameFrame.addChild(this.nameLabel)
 
-    this.pinyuinLabel = this.game.add.text(0, -5, '', {font: 'Luckiest Guy'}, this)
-    this.pinyuinLabel.anchor.x = 0.5
-    this.pinyuinLabel.anchor.y = 1
-    this.pinyuinLabel.fontSize = 30
-    this.pinyuinLabel.fill = '#ffffff'
-    this.nameFrame.addChild(this.pinyuinLabel)
+    if (this.game.lang === 'zh') {
+      this.pinyuinLabel = this.game.add.text(0, -5, '', {font: 'Luckiest Guy'}, this)
+      this.pinyuinLabel.anchor.x = 0.5
+      this.pinyuinLabel.anchor.y = 1
+      this.pinyuinLabel.fontSize = 30
+      this.pinyuinLabel.fill = '#ffffff'
+      this.nameFrame.addChild(this.pinyuinLabel)
+    }
   }
 
   setPinyuin (flag) {
@@ -33,6 +35,8 @@ export default class AnimalName extends Phaser.Group {
 
   updateText (name, pinyuin) {
     this.nameLabel.text = name
-    this.pinyuinLabel.text = pinyuin
+    if (this.game.lang === 'zh') {
+      this.pinyuinLabel.text = pinyuin
+    }
   }
 }

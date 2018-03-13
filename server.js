@@ -58,6 +58,7 @@ io.on('connection', function (socket) {
       })
       socket.on('tutorSelectAnimal', function (data) {
         io.sockets.connected[socket.room.studentSocketId].emit('tutorSelectAnimal', data)
+        io.sockets.connected[socket.room.tutorSocketId].emit('tutorSelectAnimal', data)
       })
 
       socket.on('disconnect', function () {
