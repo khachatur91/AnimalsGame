@@ -17,7 +17,7 @@ export default class TutorPopup extends Phaser.Group {
     graph.endFill()
 
     this.background = this.game.add.image(0, 0, graph.generateTexture(), '', this)
-    this.background.interactive = true
+    this.background.inputEnabled = true
 
     this.panel = new PhaserNineSlice.NineSlice(
             this.game,           // Phaser.Game
@@ -25,7 +25,7 @@ export default class TutorPopup extends Phaser.Group {
       this.game.height / 2,            // y position
             'ui',      // atlas key
             'popupBg', // Image frame
-            400,            // expected width
+            600,            // expected width
             800,            // expected height
       { // And this is the framedata, normally this is passed when preloading. Check README for details
         top: 20,    // Amount of pixels for top

@@ -8,8 +8,7 @@ app.use(express.static('dist'))
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/dist/index.html')
 })
-
-server.listen(process.env.PORT || 4000, function () {
+server.listen(process.env.PORT || 3000, function () {
   console.log('Listening on ' + server.address().port)
 })
 

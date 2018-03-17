@@ -20,7 +20,7 @@ export default class StatusPopup extends Phaser.Group {
     graph.endFill()
 
     this.background = this.game.add.image(0, 0, graph.generateTexture(), '', this)
-    this.background.interactive = true
+    this.background.inputEnabled = true
 
     this.label = this.game.add.text(this.game.width / 2, this.game.height / 3, '', {font: 'Luckiest Guy'}, this)
     this.label.anchor.set(0.5, 0.5)

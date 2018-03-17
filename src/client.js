@@ -1,9 +1,7 @@
 import io from 'socket.io-client'
 import * as Phaser from 'phaser-ce'
 
-const port = process.env.PORT || 4000
-const host = process.env.IP || 'localhost'
-const socket = io(`http://${host}:${port}`)
+const socket = io()
 
 export default class Client {
   constructor () {

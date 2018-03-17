@@ -20,7 +20,7 @@ export default class SettingsPopup extends Phaser.Group {
     graph.endFill()
 
     this.background = this.game.add.image(0, 0, graph.generateTexture(), '', this)
-    this.background.interactive = true
+    this.background.inputEnabled = true
 
     this.panel = new PhaserNineSlice.NineSlice(
             this.game,           // Phaser.Game

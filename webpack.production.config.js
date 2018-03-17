@@ -26,7 +26,7 @@ module.exports = {
     },
 
     output: {
-        path: path.resolve(__dirname, 'firebase use --add'),
+        path: path.resolve(__dirname, 'dist'),
         publicPath: '',
         filename: 'bundle.js'
     },
