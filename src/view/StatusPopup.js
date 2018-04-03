@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import PhaserNineSlice from '@orange-games/phaser-nineslice/build/phaser-nineslice.js'
 
 export default class StatusPopup extends Phaser.Group {
   constructor (game) {

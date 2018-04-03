@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import PhaserNineSlice from '@orange-games/phaser-nineslice/build/phaser-nineslice.js'
+import PhaserNineSlice from '../lib/phaser-nineslice'
 
 export default class TutorPopup extends Phaser.Group {
   constructor (game, animalsList) {
