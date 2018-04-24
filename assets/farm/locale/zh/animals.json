@@ -1,0 +1,12 @@
+{
+  "horse": {"name": "马", "pinyin": "mǎ"},
+  "pig": {"name": "猪", "pinyin": "zhū"},
+  "cow": {"name": "牛", "pinyin": "niú"},
+  "duck": {"name": "鸭", "pinyin": "yā"},
+  "goat": {"name": "山羊", "pinyin": "shān yáng"},
+  "chicken": {"name": "鸡", "pinyin": "jī"},
+  "donkey": {"name": "驴", "pinyin": "lǘ"},
+  "rabbit": {"name": "兔子", "pinyin": "tù zī"},
+  "turkey": {"name": "火鸡", "pinyin": "huǒ jī"},
+  "sheep": {"name": "羊", "pinyin": "yáng"}
+}

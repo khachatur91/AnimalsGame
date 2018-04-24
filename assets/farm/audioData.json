@@ -1,0 +1,235 @@
+{
+  "sounds": [
+    {
+      "type": "audio",
+      "key": "time",
+      "urls": [
+        "assets/farm/audio/%{lang}/TimeAlmostUp.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "win",
+      "urls": [
+        "assets/farm/audio/%{lang}/GreatJobYouDidIt.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "lose",
+      "urls": [
+        "assets/farm/audio/%{lang}/BetterLuckNextTime.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "horseTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeHorse.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "pigTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakePig.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "cowTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeCow.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "duckTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeDuck.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "goatTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeGoat.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "chickenTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeChicken.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "donkeyTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeDonkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "rabbitTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeRabbit.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "turkeyTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeTurkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "sheepTake",
+      "urls": [
+        "assets/farm/audio/%{lang}/TakeSheep.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "horseWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotHorse.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "pigWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotPig.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "cowWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotCow.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "duckWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotDuck.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "goatWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotGoat.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "chickenWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotChicken.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "donkeyWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotDonkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "rabbitWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotRabbit.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "turkeyWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotTurkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "sheepWrong",
+      "urls": [
+        "assets/farm/audio/%{lang}/NotSheep.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "horseSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessHorse.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "pigSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessPig.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "cowSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessCow.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "duckSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessDuck.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "goatSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessGoat.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "chickenSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessChicken.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "donkeySuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessDonkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "rabbitSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessRabbit.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "turkeySuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessTurkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "sheepSuccess",
+      "urls": [
+        "assets/farm/audio/%{lang}/SuccessSheep.%{ext}"
+      ]
+    }
+  ]
+}

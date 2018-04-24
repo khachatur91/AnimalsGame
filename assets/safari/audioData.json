@@ -1,0 +1,235 @@
+{
+  "sounds": [
+    {
+      "type": "audio",
+      "key": "time",
+      "urls": [
+        "assets/safari/audio/%{lang}/TimeAlmostUp.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "win",
+      "urls": [
+        "assets/safari/audio/%{lang}/GreatJobYouDidIt.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "lose",
+      "urls": [
+        "assets/safari/audio/%{lang}/BetterLuckNextTime.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "birdTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeBird.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "elephantTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeElephant.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "giraffeTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeGiraffe.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "hippoTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeHippopotamus.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "lionTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeLion.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "monkeyTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeMonkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "rhinoTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeRhinoceros.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "snakeTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeSnake.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "tigerTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeTiger.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "zebraTake",
+      "urls": [
+        "assets/safari/audio/%{lang}/TakeZebra.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "birdWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotBird.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "elephantWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotElephant.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "giraffeWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotGiraffe.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "hippoWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotHippopotamus.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "lionWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotLion.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "monkeyWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotMonkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "rhinoWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotRhinoceros.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "snakeWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotSnake.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "tigerWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotTiger.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "zebraWrong",
+      "urls": [
+        "assets/safari/audio/%{lang}/NotZebra.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "birdSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessBird.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "elephantSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessElephant.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "giraffeSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessGiraffe.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "hippoSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessHippopotamus.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "lionSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessLion.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "monkeySuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessMonkey.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "rhinoSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessRhinoceros.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "snakeSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessSnake.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "tigerSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessTiger.%{ext}"
+      ]
+    },
+    {
+      "type": "audio",
+      "key": "zebraSuccess",
+      "urls": [
+        "assets/safari/audio/%{lang}/SuccessZebra.%{ext}"
+      ]
+    }
+  ]
+}

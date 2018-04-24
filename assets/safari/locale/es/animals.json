@@ -1,0 +1,12 @@
+{
+  "bird": {"name": "pájaro"},
+  "elephant": {"name": "elefante"},
+  "giraffe": {"name": "jirafa"},
+  "hippo": {"name": "hipopótamo"},
+  "lion": {"name": "león"},
+  "monkey": {"name": "mono"},
+  "rhino": {"name": "rinoceronte"},
+  "snake": {"name": "serpiente"},
+  "tiger": {"name": "tigre"},
+  "zebra": {"name": "cebra"}
+}

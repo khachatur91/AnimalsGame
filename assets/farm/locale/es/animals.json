@@ -1,0 +1,12 @@
+{
+  "horse": {"name": "caballo"},
+  "pig": {"name": "cerdo"},
+  "cow": {"name": "vaca"},
+  "duck": {"name": "pato"},
+  "goat": {"name": "cabra"},
+  "chicken": {"name": "pollo"},
+  "donkey": {"name": "burro"},
+  "rabbit": {"name": "conejo"},
+  "turkey": {"name": "pavo"},
+  "sheep": {"name": "oveja"}
+}

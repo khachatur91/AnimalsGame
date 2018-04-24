@@ -27,6 +27,8 @@ export default class GameState extends Phaser.State {
     this.stage.backgroundColor = '#9df6e4'
 
     this.levelAnimals = this.game.cache.getJSON('gameData').levels
+    this.animalsLocale = this.game.cache.getJSON('locale')
+    console.log(this.animalsLocale)
     this.levelBackground = this.game.cache.getJSON('backgroundData').levels
 
     this.currentPage = 0
@@ -144,9 +146,10 @@ export default class GameState extends Phaser.State {
 
     this.timeRemained = 105
     this.timerLabel.text = timeToMMSS(this.timeRemained)
-
-    this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
-    this.pinyuinLabel.text = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
+    const key = this.animalsList[this.currentAnimalIndex].key
+    console.log(key)
+    this.nameLabel.text = this.animalsLocale[key].name.toUpperCase()
+    this.pinyuinLabel.text = this.animalsLocale[key]['pinyin'] || ''
 
     this.playTakeSound()
   }
@@ -225,7 +228,8 @@ export default class GameState extends Phaser.State {
       pic.anchor.set(0.5, 0.5)
       this.palaroidFrame.addChild(pic)
       if (addLabel) {
-        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, ' ' + this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase() + ' ')
+        const key = this.animalsList[this.currentAnimalIndex].key
+        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, ' ' + this.animalsLocale[key].name.toUpperCase() + ' ')
         animalName.font = 'Luckiest Guy'
         animalName.fontSize = 60
         // animalName.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
@@ -332,7 +336,7 @@ export default class GameState extends Phaser.State {
     this.nameLabel.fill = '#ffffff'
     this.nameFrame.addChild(this.nameLabel)
 
-    this.pinyuinLabel = this.game.add.text(0, -5, '', {font: 'Luckiest Guy'})
+    this.pinyuinLabel = this.game.add.text(0, -5, '')
     this.pinyuinLabel.anchor.x = 0.5
     this.pinyuinLabel.anchor.y = 1
     this.pinyuinLabel.fontSize = 30
@@ -411,8 +415,9 @@ export default class GameState extends Phaser.State {
         } else if (this.gameState === GameState.STATE_IN_GAME) {
           this.nameFrame.visible = this.settings.enableLabel
 
-          this.nameLabel.text = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
-          this.pinyuinLabel.text = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
+          const key = this.animalsList[this.currentAnimalIndex].key
+          this.nameLabel.text = this.animalsLocale[key].name.toUpperCase()
+          this.pinyuinLabel.text = this.animalsLocale[key]['pinyin'] || ''
           this.playTakeSound()
         }
       })
@@ -423,7 +428,7 @@ export default class GameState extends Phaser.State {
       if (this.currentSound) {
         this.currentSound.stop()
       }
-      this.playSound(this.animalsList[this.currentAnimalIndex].key + 'Wrong', () => {
+      this.playSound(data.frameName + 'Wrong', () => {
         this.gameState = GameState.STATE_IN_GAME
         this.showUI()
       })

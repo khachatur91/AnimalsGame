@@ -1,0 +1,12 @@
+{
+  "bird": {"name": "鸟", "pinyin": "niǎo"},
+  "elephant": {"name": "大象", "pinyin": "dà xiàng"},
+  "giraffe": {"name": "长颈鹿", "pinyin": "cháng jǐng lù"},
+  "hippo": {"name": "河马", "pinyin": "hé mǎ"},
+  "lion": {"name": "狮子", "pinyin": "shī zi"},
+  "monkey": {"name": "猴子", "pinyin": "hóu zi"},
+  "rhino": {"name": "犀牛", "pinyin": "xī niú"},
+  "snake": {"name": "蛇", "pinyin": "shé"},
+  "tiger": {"name": "老虎", "pinyin": "lǎo hǔ"},
+  "zebra": {"name": "斑马", "pinyin": "bān mǎ"}
+}

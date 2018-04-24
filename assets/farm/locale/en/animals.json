@@ -1,0 +1,12 @@
+{
+  "horse": {"name": "horse"},
+  "pig": {"name": "pig"},
+  "cow": {"name": "cow"},
+  "duck": {"name": "duck"},
+  "goat": {"name": "goat"},
+  "chicken": {"name": "chicken"},
+  "donkey": {"name": "donkey"},
+  "rabbit": {"name": "rabbit"},
+  "turkey": {"name": "turkey"},
+  "sheep": {"name": "sheep"}
+}

@@ -83,6 +83,8 @@ export default class GameState extends Phaser.State {
     this.stage.backgroundColor = '#9df6e4'
 
     this.levelAnimals = this.game.cache.getJSON('gameData').levels
+    this.animalsLocale = this.game.cache.getJSON('locale')
+    console.log(this.animalsLocale)
     this.levelBackground = this.game.cache.getJSON('backgroundData').levels
 
     this.currentPage = 0
@@ -157,7 +159,8 @@ export default class GameState extends Phaser.State {
       pic.anchor.set(0.5, 0.5)
       this.palaroidFrame.addChild(pic)
       if (addLabel) {
-        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, ' ' + this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase() + ' ')
+        const key = this.animalsList[this.currentAnimalIndex].key
+        const animalName = this.game.add.text(0, this.palaroidFrame.height / 2.5, ' ' + this.animalsLocale[key].name.toUpperCase() + ' ')
         animalName.font = 'Luckiest Guy'
         animalName.fontSize = 60
         // animalName.setShadow(-2, 2, 'rgba(0,0,0,0.5)', 4)
@@ -307,8 +310,9 @@ export default class GameState extends Phaser.State {
   }
 
   updateAnimal () {
-    const label = this.animalsList[this.currentAnimalIndex][this.game.lang].toUpperCase()
-    const pinyin = this.animalsList[this.currentAnimalIndex]['pinyin'].toUpperCase()
+    const key = this.animalsList[this.currentAnimalIndex].key
+    const label = this.animalsLocale[key].name.toUpperCase()
+    const pinyin = this.animalsLocale[key]['pinyin'] || ''
     this.nameFrame.updateText(label, pinyin)
   }
 

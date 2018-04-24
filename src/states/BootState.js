@@ -45,6 +45,7 @@ export default class BootState extends Phaser.State {
       active: this.fontsLoaded
     })
     this.game.load.image('logo', 'assets/logo.png')
+    this.game.load.json('audioData', `assets/${this.game.theme}/audioData.json`)
     this.game.load.start()
   }
 

@@ -15,7 +15,16 @@ export default class SplayState extends Phaser.State {
     tween.to({alpha: 1}, 500, Phaser.Easing.Quadratic.Out, false, 100).to({alpha: 0}, 500, Phaser.Easing.Quadratic.Out, true)
     tween.onComplete.add(this.onTweenComplete, this)
 
+    const audioData = this.game.cache.getJSON('audioData')
+
+    audioData.sounds.forEach((sound) => {
+      sound.urls[0] = sound.urls[0].replace('%{lang}', this.game.lang)
+      sound.urls[0] = sound.urls[0].replace('%{ext}', this.game.lang === 'en' ? 'm4a' : 'mp3')
+    })
+    console.log(audioData)
     this.game.load.pack('initial', `assets/assets-${this.game.theme}.json`)
+    this.game.load.pack('sounds', null, audioData)
+    this.game.load.json('locale', `assets/${this.game.theme}/locale/${this.game.lang}/animals.json`)
     this.game.load.start()
   }
 
