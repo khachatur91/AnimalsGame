@@ -7,6 +7,7 @@ export default class TutorPopup extends Phaser.Group {
     this.submitAction = new Phaser.Signal()
     this.animalsList = animalsList
     this.animalNames = []
+    this.animalsLocale = this.game.cache.getJSON('locale')
     this.createUI()
   }
 
@@ -38,9 +39,7 @@ export default class TutorPopup extends Phaser.Group {
     this.add(this.panel)
 
     this.animalsList.forEach((animalData, index) => {
-      const lang = this.game.lang
-
-      const animalName = this.game.add.text(0, -300 + index * 60, animalData[lang], {font: '75px Luckiest Guy', fill: '#ffffff'}, this)
+      const animalName = this.game.add.text(0, -300 + index * 60, this.animalsLocale[animalData.key].name, {font: '75px Luckiest Guy', fill: '#ffffff'}, this)
       animalName.inputEnabled = true
       animalName.events.onInputDown.add(() => {
         this.animalNames[this.selectedIndex].fill = '#ffffff'
